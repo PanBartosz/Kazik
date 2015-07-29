@@ -1,0 +1,226 @@
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
+
+```
+
+```{r, echo=FALSE, message=FALSE}
+library(dplyr)
+
+data1 <- read.csv(file.path(date, "cleanData28553.csv"))
+data2 <- read.csv(file.path(date, "cleanIgnacySlawek2169464.csv"))
+data3 <- read.csv(file.path(date, "cleanData249562.csv"))
+data1 <- data1[,c(1,2,6,7,8,9,10,11,12,13)]
+data2 <- data2[,c(1,2,6,7,8,9,10,12,13,14)]
+data3 <- data3[,c(1,2,6,7,8,9,10,12,13,14)]
+data <- rbind(data1, data2, data3)
+data <- data[which(data$RESPONSE !=0),]
+e_modifiers <- c("Wiedział & Kauzalna", "Wiedział & Agentywna", 
+                 "Wiedział & Stan", "Sądził & Kauzalna", "Sądził & Agentywna",
+                 "Sądził & Stan")
+data <- data[which(data$ADVERB %in% e_modifiers),]
+
+data.wiedzialkauzalna <- data[which(data$ADVERB == e_modifiers[1]),]
+data.wiedzialagentywna <- data[which(data$ADVERB == e_modifiers[2]),]
+data.wiedzialstan <- data[which(data$ADVERB == e_modifiers[3]),]
+data.sadzilkauzalna <- data[which(data$ADVERB == e_modifiers[4]),]
+data.sadzilagentywna <- data[which(data$ADVERB == e_modifiers[5]),]
+data.sadzilstan <- data[which(data$ADVERB == e_modifiers[6]),]
+
+```
+
+Replikacja efektu epistemicznego w języku polskim - raport z badania
+=====================================================================
+##Autorzy badania: Sławomir Mijas, Ignacy Szczeniowski, Marta Zaręba, Katarzyna Kuś, Bartosz Maćkiewicz
+
+## Cel badania: 
+Replikacja efektu epistemicznego na polskich czasownikach epistemicznych.
+
+## Konstrukcja badania:
+Badanie było replikacją badania, pokazującego istnienie efektu epistemicznego w języku angielskim.
+
+Efekt epistemiczny polega na tym, że badani konfrontowani z oryginalnymi scenariuszami z eksperymentu Knobe'a odpowiadają na pytanie "Did the chairman know that the environment will be harmed/helped" w sposób asymetryczny. 
+
+Jako odpowiedniki angielskiego "know" wybraliśmy dwa czasowniki polskie epistemiczne:
+- Wiedzieć
+- Sądzić 
+
+W oryginalnym badaniu użyta została strona bierna ("environment will be harmed/helped"). W języku polskim nie można utworzyć strony biernej od czasowników "szkodzić" i "pomagać". Wybraliśmy zatem trzy najbliższe oryginalnemu sformułowaniu wersje:
+- "...zaszkodzi/pomoże środowisku" (forma agentywna)
+- "...program zaszkodzi/pomoże środowisku" (forma kauzalna)
+- "...stan środowiska się pogorszy/polepszy" (pytanie o stan środowiska)
+
+Każdemu z badanych zaprezentowana był jeden z dwóch scenariuszy, w których w miejscu oznaczonym [e-formuła] stał odpowiedni czasownik epistemiczny wraz z dopełnieniem:
+
+**Scenariusz HARM**
+
+Wicedyrektor zwraca się do dyrektora pewnej firmy:
+
+„Myślimy o wdrożeniu nowego programu. Pozwoli nam zwiększyć zyski, ale zaszkodzi środowisku”.
+
+Dyrektor odpowiada:
+
+„Nie obchodzi mnie szkodzenie środowisku. Chcę tylko zwiększyć zyski. Wdrażamy program”.
+
+Program został wdrożony i rzeczywiście zaszkodził środowisku.
+
+Czy dyrektor [e-formuła]?
+
+**Scenariusz HELP**
+
+Wicedyrektor zwraca się do dyrektora pewnej firmy:
+
+„Myślimy o wdrożeniu nowego programu. Pozwoli nam zwiększyć zyski i pomoże środowisku”.
+
+Dyrektor odpowiada:
+
+„Nie obchodzi mnie pomaganie środowisku. Chcę tylko zwiększyć zyski. Wdrażamy program”.
+
+Program został wdrożony i rzeczywiście pomógł środowisku.
+
+Czy dyrektor [e-formuła] pomógł środowisku?
+
+## Technikalia
+Każdemu z badanych zaprezentowany był tylko jeden scenariusz. Czas na odpowiedź był nieograniczony. Badanie odbyło się za pośrednictwem internetowego systemu ankietowego Limesurvey na platformie uniwersyteckiej Kognilab. 
+
+##Wyniki:
+
+###Wiedział + forma agentywna ("...zaszkodzi/pomoże środowisku"):
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.wiedzialagentywna)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+attach(data.wiedzialagentywna)
+chisq.test(GROUP, RESPONSE)
+detach(data.wiedzialagentywna)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+attach(data.wiedzialagentywna)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.wiedzialagentywna)
+```
+
+###Wiedział + forma kauzalna ("...program zaszkodzi/pomoże środowisku")
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.wiedzialkauzalna)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+attach(data.wiedzialkauzalna)
+chisq.test(GROUP, RESPONSE)
+detach(data.wiedzialkauzalna)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+attach(data.wiedzialkauzalna)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.wiedzialkauzalna)
+```
+
+###Wiedział + pytanie o stan środowiska ("...stan środowiska się pogorszy/polepszy")
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.wiedzialstan)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+attach(data.wiedzialstan)
+chisq.test(GROUP, RESPONSE)
+detach(data.wiedzialstan)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+attach(data.wiedzialstan)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.wiedzialstan)
+```
+
+
+###Sądził + forma agentywna ("...zaszkodzi/pomoże środowisku"):
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.sadzilagentywna)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+attach(data.sadzilagentywna)
+chisq.test(GROUP, RESPONSE)
+detach(data.sadzilagentywna)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+attach(data.sadzilagentywna)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.sadzilagentywna)
+```
+
+###Sądził + forma kauzalna ("...program zaszkodzi/pomoże środowisku")
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.sadzilkauzalna)
+```
+  
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+attach(data.sadzilkauzalna)
+chisq.test(GROUP, RESPONSE)
+detach(data.sadzilkauzalna)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+attach(data.sadzilkauzalna)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.sadzilkauzalna)
+```
+
+###Sądził + pytanie o stan środowiska ("...stan środowiska się pogorszy/polepszy")
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.sadzilstan)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+attach(data.sadzilstan)
+chisq.test(GROUP, RESPONSE)
+detach(data.sadzilstan)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+attach(data.sadzilstan)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.sadzilstan)
+```
+
+##Komentarz

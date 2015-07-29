@@ -1,0 +1,134 @@
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
+
+```
+
+```{r, echo=FALSE, message=FALSE}
+library(dplyr)
+data <- read.csv(file.path(date, "cleanDataJanek169464.csv"))
+adverbs <- levels(data$ADVERB)
+data <- data[which(data$RESPONSE !=0),]
+data.endemicznie <- data[which(data$ADVERB == adverbs[1]),]
+data.katrybilnie <- data[which(data$ADVERB == adverbs[2]),]
+data.pastewnie <- data[which(data$ADVERB == adverbs[3]),]
+
+```
+
+Wymyślone przysłówki - raport z badania
+=====================================================================
+##Autorzy badania: Jan Winkowski
+
+
+## Cel badania: 
+Sprawdzenie, czy efekt Knobe'a występuję w sytuacji, gdy zamiast przysłówków wskazujących na intencjonalnoś działania w pytaniu pojawią się niezrozumiałe dla respondentów przysłówki - wymyślone lub źle użyte. 
+
+## Konstrukcja badania:
+Przysłówki, które autor wybrał do badania to:
+- "Katrybilnie" (przysłówek nieistniejący)
+- "Endemicznie" (przysłówek istniejący, ale bezsensowny w kontekście pytania)
+- "Pastewnie" (przysłówke nieistniejący, ale utworzony od istniejącego słowa)
+
+Każdemu z badanych zaprezentowana był jeden z dwóch scenariuszy, w których w miejscu oznaczonym [modyfikator] stał odpowiedni przysłówek.
+
+**Scenariusz HARM**
+
+Wicedyrektor zwraca się do dyrektora pewnej firmy:
+
+„Myślimy o wdrożeniu nowego programu. Pozwoli nam zwiększyć zyski, ale zaszkodzi środowisku”.
+
+Dyrektor odpowiada:
+
+„Nie obchodzi mnie szkodzenie środowisku. Chcę tylko zwiększyć zyski. Wdrażamy program”.
+
+Program został wdrożony i rzeczywiście zaszkodził środowisku.
+
+Czy dyrektor [modyfikator] zaszkodził środowisku?
+
+**Scenariusz HELP**
+
+Wicedyrektor zwraca się do dyrektora pewnej firmy:
+
+„Myślimy o wdrożeniu nowego programu. Pozwoli nam zwiększyć zyski i pomoże środowisku”.
+
+Dyrektor odpowiada:
+
+„Nie obchodzi mnie pomaganie środowisku. Chcę tylko zwiększyć zyski. Wdrażamy program”.
+
+Program został wdrożony i rzeczywiście pomógł środowisku.
+
+Czy dyrektor [modyfikator] pomógł środowisku?
+
+## Technikalia
+Każdemu z badanych zaprezentowany był tylko jeden scenariusz. Czas na odpowiedź był nieograniczony. Badanie odbyło się za pośrednictwem internetowego systemu ankietowego Limesurvey na platformie uniwersyteckiej Kognilab. Dodatkowo oprócz odpowiedzi na pytanie rejestrowany był czas, jaki odpowiadający spędził poza oknem przeglądarki w celu kontrolowania tego, czy respondent nie wyszukuje przysłówków w internecie.
+
+###"Katrybilnie" (przysłówek nieistniejący):
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.katrybilnie)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+attach(data.katrybilnie)
+chisq.test(GROUP, RESPONSE)
+detach(data.katrybilnie)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+attach(data.katrybilnie)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.katrybilnie)
+```
+
+###"Endemicznie" (przysłówek istniejący, ale bezsensowny w kontekście pytania)
+
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.endemicznie)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+attach(data.endemicznie)
+chisq.test(GROUP, RESPONSE)
+detach(data.endemicznie)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+attach(data.endemicznie)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.endemicznie)
+```
+
+###"Pastewnie" (przysłówke nieistniejący, ale utworzony od istniejącego słowa)
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.pastewnie)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+attach(data.pastewnie)
+chisq.test(GROUP, RESPONSE)
+detach(data.pastewnie)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+attach(data.pastewnie)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.pastewnie)
+```
+
+##Komentarz
