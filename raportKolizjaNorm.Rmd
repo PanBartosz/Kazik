@@ -1,5 +1,80 @@
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
+library(dplyr)
+library(lattice)
+data <- read.csv(file.path(date, "cleanKasiaBartosz169464.csv"))
+data <- data[which(data$Environment_response !=0),]
+data <- data[which(data$Starvation_response !=0),]
 
 ```
-F
+
+Kolizja norm i efekt Knobe'a - raport z badania
+=====================================================================
+##Autor badania: Wiktor Piotrowski
+
+## Cel badania: 
+Tutaj uzupełni dr Kuś :)
+
+## Konstrukcja badania
+Tutaj też :)
+
+## Wyniki
+
+###Świadomie
+
+```{r, echo=FALSE}
+xtabs(~ Environment_response + GROUP + ACTION, data = data)
+```
+
+####Test istotności statystycznej:
+**Czy dyrektor umyślnie zaszkodził/pomógł środoiwsku + Brak działania:**
+
+```{r, echo=FALSE}
+sdata <- split.data.frame(data, data$ACTION)
+chisq.test(sdata[[1]]$GROUP, sdata[[1]]$Environment_response)
+```
+
+**Czy dyrektor umyślnie zaszkodził/pomógł środoiwsku + Działanie:**
+
+```{r}
+chisq.test(sdata[[1]]$GROUP, sdata[[1]]$Environment_response)
+```
+
+**Czy dyrektor umyślnie uratował/naraził na śmierć głodową + Brak działania:**
+
+```{r, echo=FALSE}
+sdata <- split.data.frame(data, data$ACTION)
+chisq.test(sdata[[1]]$GROUP, sdata[[1]]$Environment_response)
+```
+
+**Czy dyrektor umyślnie uratował/naraził na śmierć głodową + Działanie:**
+
+```{r}
+chisq.test(sdata[[1]]$GROUP, sdata[[1]]$Starvation_response)
+```
+
+####Wykresy:
+
+**Czy dyrektor umyślnie zaszkodził/pomógł środowisku?**
+
+```{r, echo=FALSE}
+attach(data)
+xtable <-xtabs(~ Environment_response + GROUP + ACTION, drop.unused.levels = TRUE)
+xtable[1:2,1:2,1] <- prop.table(xtable[1:2,1:2,1],1)
+xtable[1:2,1:2,2] <- prop.table(xtable[1:2,1:2,1],2)
+barchart(xtable, groups = ACTION, horizontal = 0)
+detach(data)
+```
+
+**Czy dyrektor umyślnie uratował/naraził na śmierć głodową mieszkańców?**
+
+```{r, echo=FALSE}
+attach(data)
+xtable <-xtabs(~ Environment_response + GROUP + ACTION, drop.unused.levels = TRUE)
+xtable[1:2,1:2,1] <- prop.table(xtable[1:2,1:2,1],1)
+xtable[1:2,1:2,2] <- prop.table(xtable[1:2,1:2,1],2)
+barchart(xtable, groups = ACTION, horizontal = 0)
+detach(data)
+```
+
+## Komentarz

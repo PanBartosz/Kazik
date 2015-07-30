@@ -1,4 +1,109 @@
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
+library(dplyr)
+data <- read.csv(file.path(date, "cleanDataWiktor169464.csv"))
+data <- data[which(data$ATTITUDE !=0),]
+data <- data[which(data$CHAIRMAN_ATTITUDE !=0),]
 
 ```
+
+Postawy moralne i efekt Knobe'a - raport z badania
+=====================================================================
+##Autor badania: Wiktor Piotrowski
+
+## Cel badania: 
+Sprawdzenie, w jaki sposób badani interpretują postawę dyrektora wobec szkodzenia i pomagania środowisku oraz jaką sami mają postawę wobec dyrektora. 
+
+## Konstrukcja badania:
+Badanym przedstawiony były zmodyfikowane (usunięte zostało ostatnie zdanie o skutkach wdrożenia programu) oryginalne Knobe'owskie scenariusze:
+
+
+**Scenariusz HARM**
+
+Wicedyrektor zwraca się do dyrektora pewnej firmy:
+
+„Myślimy o wdrożeniu nowego programu. Pozwoli nam zwiększyć zyski, ale zaszkodzi środowisku”.
+
+Dyrektor odpowiada:
+
+„Nie obchodzi mnie szkodzenie środowisku. Chcę tylko zwiększyć zyski. Wdrażamy program”.
+
+
+**Scenariusz HELP**
+
+Wicedyrektor zwraca się do dyrektora pewnej firmy:
+
+„Myślimy o wdrożeniu nowego programu. Pozwoli nam zwiększyć zyski i pomoże środowisku”.
+
+Dyrektor odpowiada:
+
+„Nie obchodzi mnie pomaganie środowisku. Chcę tylko zwiększyć zyski. Wdrażamy program”.
+
+
+
+
+Następnie zostały zadane im dwa pytania:
+
+1. Które zdanie najlepiej opisuje postawę dyrektora?
+a) Dyrektor dezaprobuje pomaganie środowisku.
+b) Dyrektor aprobuje pomaganie środowisku.
+c) Dyrektor dezaprobuje szkodzenie środowisku
+d) Dyrektor aprobuje szkodzenie środowisku.
+e) Dyrektor jest obojętny wobec środowiska. 
+
+2. Jak Pan/Pani ocenia postawę dyrektora?
+a) Dezaprobuję postawę dyrektora.
+b) Aprobuję postawę dyrektora.
+c) Jestem obojętny wobec postawy dyrektora.
+
+## Technikalia
+Każdemu z badanych zaprezentowany był tylko jeden scenariusz. Czas na odpowiedź był nieograniczony. Badanie odbyło się za pośrednictwem internetowego systemu ankietowego Limesurvey na platformie uniwersyteckiej Kognilab. 
+
+## Wyniki
+
+### Które zdanie najlepiej opisuje postawę dyrektora?
+```{r, echo=FALSE}
+xtabs(~ CHAIRMAN_ATTITUDE + GROUP, data = data)
+```
+
+#### Test istotności statystycznej:
+```{r, echo=FALSE}
+attach(data)
+chisq.test(CHAIRMAN_ATTITUDE, GROUP)
+detach(data)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+attach(data)
+barplot(prop.table(xtabs(~ CHAIRMAN_ATTITUDE + GROUP, drop.unused.levels = T), 2), beside = TRUE)
+legend("topright", levels(data$CHAIRMAN_ATTITUDE)[2:5], fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data)
+```
+
+
+### Jak Pan/Pani ocenia postawę dyrektora?
+
+```{r, echo=FALSE}
+xtabs(~ ATTITUDE + GROUP, data = data)
+```
+
+#### Test istotności statystycznej:
+
+```{r, echo=FALSE}
+attach(data)
+chisq.test(ATTITUDE, GROUP)
+detach(data)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+attach(data)
+barplot(prop.table(xtabs(~ ATTITUDE + GROUP, drop.unused.levels = T), 2), beside = TRUE)
+legend("topright", levels(data$ATTITUDE)[2:4], fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data)
+```
+
+## Komentarz

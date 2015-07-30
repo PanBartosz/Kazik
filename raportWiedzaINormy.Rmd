@@ -1,4 +1,135 @@
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
 
+library(dplyr)
+data <- read.csv(file.path(date, "cleanDataIgnacySlawek169464.csv"))
+data <- data[which(data$intentionality !=0),]
+data <- data[which(data$obligation_know !=0),]
+data <- data[which(data$obligation_exist !=0),]
+data <- data[which(data$GROUP !=0),]
+
 ```
+
+Wiedza i normy - efekt Knobe'a i zaniechaniowa koncepcja intencjonalności - raport z badania
+=====================================================================
+##Autorzy badania: Sławomir Mijas, Ignacy Szczeniowski
+
+## Cel badania: 
+Sprawdzenie zaniechaniowego wyjaśnienia efektu Knobe'a zaproponowanego przez prof. Katarzynę Paprzycką. 
+
+## Konstrukcja badania:
+Badanym przedstawiony były oryginalne Knobe'owskie scenariusze:
+
+
+**Scenariusz HARM**
+
+Wicedyrektor zwraca się do dyrektora pewnej firmy:
+
+„Myślimy o wdrożeniu nowego programu. Pozwoli nam zwiększyć zyski, ale zaszkodzi środowisku”.
+
+Dyrektor odpowiada:
+
+„Nie obchodzi mnie szkodzenie środowisku. Chcę tylko zwiększyć zyski. Wdrażamy program”.
+
+Program został wdrożony i rzeczywiście zaszkodził środowisku.
+
+
+**Scenariusz HELP**
+
+Wicedyrektor zwraca się do dyrektora pewnej firmy:
+
+„Myślimy o wdrożeniu nowego programu. Pozwoli nam zwiększyć zyski i pomoże środowisku”.
+
+Dyrektor odpowiada:
+
+„Nie obchodzi mnie pomaganie środowisku. Chcę tylko zwiększyć zyski. Wdrażamy program”.
+
+Program został wdrożony i rzeczywiście pomógł środowisku.
+
+
+Następnie zostały zadane im trzy pytania (każde na osobnym ekranie, bez możliwości powrotu do poprzedniego pytania)
+
+1. Czy dyrektor umyślnie zaszkodził/pomógł środowisku? (intencjonalność)
+2. Czy dyrektor wiedział, że ma obowiązek nie szkodzić/pomóc środowisku? (wiedza o obowiązku)
+3. Czy dyrektor miał obowiązek nie szkodzić/pomóc środowisku? (istnienie obowiązku)
+
+## Technikalia
+Każdemu z badanych zaprezentowany był tylko jeden scenariusz. Czas na odpowiedź był nieograniczony. Badanie odbyło się za pośrednictwem internetowego systemu ankietowego Limesurvey na platformie uniwersyteckiej Kognilab. 
+
+##Wyniki:
+
+
+###Czy dyrektor umyślnie zaszkodził/pomógł środowisku? (intencjonalność)
+
+
+```{r, echo=FALSE}
+xtabs(~ intentionality + GROUP, data = data)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+attach(data)
+chisq.test(GROUP, intentionality)
+detach(data)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+attach(data)
+barplot(prop.table(xtabs(~ intentionality + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data)
+```
+
+
+###Czy dyrektor wiedział, że ma obowiązek nie szkodzić/pomóc środowisku? (wiedza o obowiązku)
+
+
+```{r, echo=FALSE}
+xtabs(~ obligation_know + GROUP, data = data)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+attach(data)
+chisq.test(GROUP, obligation_know)
+detach(data)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+attach(data)
+barplot(prop.table(xtabs(~ obligation_know + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data)
+```
+
+###Czy dyrektor miał obowiązek nie szkodzić/pomóc środowisku? (istnienie obowiązku)
+
+
+```{r, echo=FALSE}
+xtabs(~ obligation_exist + GROUP, data = data)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+attach(data)
+chisq.test(GROUP, obligation_exist)
+detach(data)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+attach(data)
+barplot(prop.table(xtabs(~ obligation_exist + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data)
+```
+
+##Komentarz

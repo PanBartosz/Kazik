@@ -9,7 +9,7 @@ getRawData <- function(SIDS){
   library(XMLRPC)
   library(base64enc)
   url <- "http://kognilab.pl/lime/index.php/admin/remotecontrol"
-  key <- xml.rpc(url = url, method = "get_session_key", "admin", "nietakszybko")
+  key <- xml.rpc(url = url, method = "get_session_key", "admin", "k0gni1ab01")
   dir.create(file.path(date, "rawData"))
   for (sid in SIDS){
             results <- xml.rpc(url = url,

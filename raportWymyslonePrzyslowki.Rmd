@@ -16,7 +16,7 @@ data.pastewnie <- data[which(data$ADVERB == adverbs[3]),]
 
 Wymyślone przysłówki - raport z badania
 =====================================================================
-##Autorzy badania: Jan Winkowski
+##Autor badania: Jan Winkowski
 
 
 ## Cel badania: 

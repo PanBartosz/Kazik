@@ -31,17 +31,17 @@ rawDataKasiaBartosz22 <- rawData[which(rawData$LOSUJ > 18) ,]
 
 #Dane Ignacego i Sławka o obowiązku:
 
-intentionality <- as.numeric(rawDataIgnacySlawek$IntHARM)-1 + 
+IntentionalityX <- as.numeric(rawDataIgnacySlawek$IntHARM)-1 + 
   as.numeric(rawDataIgnacySlawek$IntHELP)-1
-rawDataIgnacySlawek$intentionality <- mapvalues(as.factor(intentionality), from = c("1","2"), to = c("Nie", "Tak"))
+rawDataIgnacySlawek$intentionality <- mapvalues(as.factor(IntentionalityX), from = c("1","2"), to = c("Nie", "Tak"))
 
-obligation_know <- as.numeric(rawDataIgnacySlawek$WoOHARM)-1 + 
+Obligation_knowX <- as.numeric(rawDataIgnacySlawek$WoOHARM)-1 + 
   as.numeric(rawDataIgnacySlawek$WoOHELP)-1
-rawDataIgnacySlawek$obligation_know <- mapvalues(as.factor(obligation_know), from = c("1","2"), to = c("Nie", "Tak"))
+rawDataIgnacySlawek$obligation_know <- mapvalues(as.factor(Obligation_knowX), from = c("1","2"), to = c("Nie", "Tak"))
 
-obligation_exist <-as.numeric(rawDataIgnacySlawek$IOHARM)-1 + 
+Obligation_existX <-as.numeric(rawDataIgnacySlawek$IOHARM)-1 + 
   as.numeric(rawDataIgnacySlawek$IOMHELP)-1
-rawDataIgnacySlawek$obligation_exist <- mapvalues(as.factor(obligation_exist), from = c("1","2"), to = c("Nie", "Tak"))
+rawDataIgnacySlawek$obligation_exist <- mapvalues(as.factor(Obligation_existX), from = c("1","2"), to = c("Nie", "Tak"))
 
 #Zapisywanie oczyszczonych danych 
 cleanDataIgnacySlawek <- rawDataIgnacySlawek[, c(1,2,5,6,51,52,53,54,55,56,62,63,64,65)]
