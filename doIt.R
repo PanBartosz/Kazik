@@ -1,10 +1,14 @@
 library(rmarkdown)
+username <- commandArgs(trailingOnly = TRUE)[1]
+password <- commandArgs(trailingOnly = TRUE)[2]
+as.character(username)
+as.character(password)
 date <- as.character(date())
 dir.create(date)
 source("downloadRawData.R")
 source("cleanData.R")
-source("clearData2.R")
-source("clearData3.R")
+source("cleanData2.R")
+source("cleanData3.R")
 dir.create("raports")
 rmarkdown::render(file.path("raportPrzyslowki.Rmd"), output_dir = file.path(date, "raports"))
 rmarkdown::render(file.path("raportEfektEpistemiczny.Rmd"), output_dir = file.path(date, "raports"))
@@ -12,3 +16,4 @@ rmarkdown::render(file.path("raportWymyslonePrzyslowki.Rmd"), output_dir = file.
 rmarkdown::render(file.path("raportWiedzaINormy.Rmd"), output_dir = file.path(date, "raports"))
 rmarkdown::render(file.path("raportPostawy.Rmd"), output_dir = file.path(date, "raports"))
 rmarkdown::render(file.path("raportKolizjaNorm.Rmd"), output_dir = file.path(date, "raports"))
+rmarkdown::render(file.path("info.Rmd"), output_dir = file.path(date, "raports"))

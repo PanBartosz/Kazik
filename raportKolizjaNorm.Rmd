@@ -70,7 +70,7 @@ detach(data)
 
 ```{r, echo=FALSE}
 attach(data)
-xtable <-xtabs(~ Environment_response + GROUP + ACTION, drop.unused.levels = TRUE)
+xtable <-xtabs(~ Starvation_response + GROUP + ACTION, drop.unused.levels = TRUE)
 xtable[1:2,1:2,1] <- prop.table(xtable[1:2,1:2,1],1)
 xtable[1:2,1:2,2] <- prop.table(xtable[1:2,1:2,1],2)
 barchart(xtable, groups = ACTION, horizontal = 0)

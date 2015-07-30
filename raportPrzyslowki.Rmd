@@ -1,5 +1,6 @@
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
+library(lattice)
 ```
 
 ```{r, echo=FALSE, message=FALSE}
@@ -282,6 +283,19 @@ attach(data.zrozmyslem2)
 barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
 legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
 detach(data.zrozmyslem2)
+```
+
+
+##Tabela zbiorcza:
+
+```{r, echo=FALSE, fig.height=16}
+data<- data[which(data$RESPONSE !=0),]
+attach(data)
+xtable <-xtabs(~ RESPONSE + GROUP + ADVERB, drop.unused.levels = TRUE)
+xtable[1:2,1:2,1] <- prop.table(xtable[1:2,1:2,1],1)
+xtable[1:2,1:2,2] <- prop.table(xtable[1:2,1:2,1],2)
+barchart(xtable, groups = ADVERB, horizontal = 0)
+detach(data)
 ```
 
 ##Komentarz
