@@ -49,8 +49,8 @@ getSurveyInfo <- function(SIDS) {
 for (sid in SIDS){
     
     data <- read.csv(file.path(date, "rawData", paste(as.character(sid), ".csv", sep = "")))
-    completed <- c(completed, nrow(data[data$lastpage == max(data$lastpage, na.rm = TRUE),]))
-    all <- c(all, nrow(data))
+    completed <- c(nrow(data[data$lastpage == max(data$lastpage, na.rm = TRUE),]), completed)
+    all <- c(nrow(data), all)
 }
   surveyInfoClean <- cbind(surveyInfoClean, completed, all)
   write.csv(surveyInfoClean, file = file.path(date, "info.csv"))

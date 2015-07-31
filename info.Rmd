@@ -6,7 +6,8 @@ colnames(table) <- c("Numer ankiety", "Tytuł badania", "Aktywna?", "Pełnych od
 library(knitr)
 ```
 
-Podsumowanie liczby odpowiedzi w ankietach na dzień: `date` 
+Podsumowanie liczby odpowiedzi w ankietach:
+===========================================
 
 ``` {r}
 kable(table)
