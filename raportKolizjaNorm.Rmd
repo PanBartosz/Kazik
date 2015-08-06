@@ -10,7 +10,7 @@ data <- data[which(data$Starvation_response !=0),]
 
 Kolizja norm i efekt Knobe'a - raport z badania
 =====================================================================
-##Autor badania: Wiktor Piotrowski
+##Autor badania: Katarzyna Kuś, Bartosz Maćkiewicz
 
 ## Cel badania: 
 Tutaj uzupełni dr Kuś :)

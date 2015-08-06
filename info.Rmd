@@ -4,6 +4,8 @@ table <- read.csv(file.path(date, "info.csv"))
 table <- cbind(table[,2:4], table[,7:8])
 colnames(table) <- c("Numer ankiety", "Tytuł badania", "Aktywna?", "Pełnych odpowiedzi", "Wszystkich odpowiedzi")
 library(knitr)
+library(ggplot2)
+Sys.setlocale("LC_TIME", "en_US.utf8")
 ```
 
 Podsumowanie liczby odpowiedzi w ankietach:
@@ -11,4 +13,19 @@ Podsumowanie liczby odpowiedzi w ankietach:
 
 ``` {r}
 kable(table)
+```
+
+
+## Wzrost liczby odpowiedzi kompletnych:
+
+```{r}
+plot <- qplot(y = completed, x = strptime(date, format = "%a %b %e %H:%M:%S %Y"), data = infoTable, geom = "line")
+plot2 <- plot + facet_grid(sid~.)
+plot2
+```
+
+##Informacje szczegółowe:
+
+```{r}
+kable(infoTable)
 ```
