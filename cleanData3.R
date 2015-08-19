@@ -103,7 +103,7 @@ write.csv(cleanDataWiktor, file = file.path(date, "cleanDataWiktor169464.csv"))
 
 # Dane Katarzyny i Bartosza o kolizjach norm
 
-rawDataKasiaBartosz$ACTION <- ifelse(rawDataKasiaBartosz$LOSUJ %in% c(11,12), "Działanie", "Brak działania")
+rawDataKasiaBartosz$ACTION <- ifelse(rawDataKasiaBartosz$LOSUJ %in% c(12,13), "Działanie", "Brak działania")
 rawDataKasiaBartosz$ACTION <- as.factor(rawDataKasiaBartosz$ACTION)
 
 # Dodanie kolumny z pytaniem o środowisko

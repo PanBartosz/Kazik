@@ -1,44 +1,14 @@
-
-R version 3.2.1 (2015-06-18) -- "World-Famous Astronaut"
-Copyright (C) 2015 The R Foundation for Statistical Computing
-Platform: x86_64-redhat-linux-gnu (64-bit)
-
-R jest oprogramowaniem darmowym i dostarczany jest BEZ JAKIEJKOLWIEK GWARANCJI.
-Możesz go rozpowszechniać pod pewnymi warunkami.
-Wpisz 'license()' lub 'licence()' aby uzyskać szczegóły dystrybucji.
-
-R jest projektem kolaboracyjnym z wieloma uczestnikami.
-Wpisz 'contributors()' aby uzyskać więcej informacji oraz
-'citation()' aby dowiedzieć się jak cytować R lub pakiety R w publikacjach.
-
-Wpisz 'demo()' aby zobaczyć demo, 'help()' aby uzyskać pomoc on-line, lub
-'help.start()' aby uzyskać pomoc w przeglądarce HTML.
-Wpisz 'q()' aby wyjść z R.
-
-[Poprzednio zapisany obszar roboczy został przywrócony]
-
-> library(rmarkdown)
-> date <- as.character(date())
-> dir.create(date)
-> source("downloadRawData.R")
-> source("cleanData.R")
 Następujący obiekt został zakryty z package:base:
 
     F
 
-> source("clearData2.R")
 Następujący obiekt został zakryty z package:base:
 
     F
 
-> source("clearData3.R")
 The following `from` values were not present in `x`: A5, A6
 The following `from` values were not present in `x`: A4
 The following `from` values were not present in `x`: 2
-> dir.create("raports")
-Komunikat ostrzegawczy:
-W poleceniu 'dir.create("raports")': katalog 'raports' już istnieje
-> rmarkdown::render(file.path("raportPrzyslowki.Rmd"), output_dir = file.path(date, "raports"))
 
 
 processing file: raportPrzyslowki.Rmd
@@ -72,18 +42,18 @@ Następujące obiekty zostały zakryte z 'package:base':
 
     intersect, setdiff, setequal, union
 
-  |                                                                         |.....                                                            |   8%
+  |                                                                         |.....                                                            |   7%
   ordinary text without R code
 
-  |                                                                         |......                                                           |  10%
+  |                                                                         |......                                                           |   9%
 label: unnamed-chunk-2 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |........                                                         |  12%
+  |                                                                         |.......                                                          |  11%
   ordinary text without R code
 
-  |                                                                         |.........                                                        |  13%
+  |                                                                         |........                                                         |  13%
 label: unnamed-chunk-3 (with options) 
 List of 1
  $ echo: logi FALSE
@@ -96,175 +66,182 @@ label: unnamed-chunk-4 (with options)
 List of 1
  $ echo: logi FALSE
 
-Fontconfig error: "/home/bmackiewicz/.config/fontconfig/fonts.conf", line 1: XML or text declaration not at start of entity
-Fontconfig error: "~/.fonts.conf", line 1: XML or text declaration not at start of entity
   |                                                                         |............                                                     |  19%
   ordinary text without R code
 
-  |                                                                         |..............                                                   |  21%
+  |                                                                         |.............                                                    |  20%
 label: unnamed-chunk-5 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |...............                                                  |  23%
+  |                                                                         |..............                                                   |  22%
   ordinary text without R code
 
-  |                                                                         |................                                                 |  25%
+  |                                                                         |................                                                 |  24%
 label: unnamed-chunk-6 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |..................                                               |  27%
+  |                                                                         |.................                                                |  26%
   ordinary text without R code
 
-  |                                                                         |...................                                              |  29%
+  |                                                                         |..................                                               |  28%
 label: unnamed-chunk-7 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |....................                                             |  31%
+  |                                                                         |...................                                              |  30%
   ordinary text without R code
 
-  |                                                                         |.....................                                            |  33%
+  |                                                                         |....................                                             |  31%
 label: unnamed-chunk-8 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |......................                                           |  35%
+  |                                                                         |......................                                           |  33%
   ordinary text without R code
 
-  |                                                                         |........................                                         |  37%
+  |                                                                         |.......................                                          |  35%
 label: unnamed-chunk-9 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |.........................                                        |  38%
+  |                                                                         |........................                                         |  37%
   ordinary text without R code
 
-  |                                                                         |..........................                                       |  40%
+  |                                                                         |.........................                                        |  39%
 label: unnamed-chunk-10 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |............................                                     |  42%
+  |                                                                         |..........................                                       |  41%
   ordinary text without R code
 
-  |                                                                         |.............................                                    |  44%
+  |                                                                         |............................                                     |  43%
 label: unnamed-chunk-11 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |..............................                                   |  46%
+  |                                                                         |.............................                                    |  44%
   ordinary text without R code
 
-  |                                                                         |...............................                                  |  48%
+  |                                                                         |..............................                                   |  46%
 label: unnamed-chunk-12 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |................................                                 |  50%
+  |                                                                         |...............................                                  |  48%
   ordinary text without R code
 
-  |                                                                         |..................................                               |  52%
+  |                                                                         |................................                                 |  50%
 label: unnamed-chunk-13 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |...................................                              |  54%
+  |                                                                         |..................................                               |  52%
   ordinary text without R code
 
-  |                                                                         |....................................                             |  56%
+  |                                                                         |...................................                              |  54%
 label: unnamed-chunk-14 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |......................................                           |  58%
+  |                                                                         |....................................                             |  56%
   ordinary text without R code
 
-  |                                                                         |.......................................                          |  60%
+  |                                                                         |.....................................                            |  57%
 label: unnamed-chunk-15 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |........................................                         |  62%
+  |                                                                         |.......................................                          |  59%
   ordinary text without R code
 
-  |                                                                         |.........................................                        |  63%
+  |                                                                         |........................................                         |  61%
 label: unnamed-chunk-16 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |..........................................                       |  65%
+  |                                                                         |.........................................                        |  63%
   ordinary text without R code
 
-  |                                                                         |............................................                     |  67%
+  |                                                                         |..........................................                       |  65%
 label: unnamed-chunk-17 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |.............................................                    |  69%
+  |                                                                         |...........................................                      |  67%
   ordinary text without R code
 
-  |                                                                         |..............................................                   |  71%
+  |                                                                         |.............................................                    |  69%
 label: unnamed-chunk-18 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |................................................                 |  73%
+  |                                                                         |..............................................                   |  70%
   ordinary text without R code
 
-  |                                                                         |.................................................                |  75%
+  |                                                                         |...............................................                  |  72%
 label: unnamed-chunk-19 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |..................................................               |  77%
+  |                                                                         |................................................                 |  74%
   ordinary text without R code
 
-  |                                                                         |...................................................              |  79%
+  |                                                                         |.................................................                |  76%
 label: unnamed-chunk-20 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |....................................................             |  81%
+  |                                                                         |...................................................              |  78%
+  ordinary text without R code
+
+  |                                                                         |....................................................             |  80%
+label: unnamed-chunk-21 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |.....................................................            |  81%
   ordinary text without R code
 
   |                                                                         |......................................................           |  83%
-label: unnamed-chunk-21 (with options) 
+label: unnamed-chunk-22 (with options) 
 List of 1
  $ echo: logi FALSE
 
   |                                                                         |.......................................................          |  85%
   ordinary text without R code
 
-  |                                                                         |........................................................         |  87%
-label: unnamed-chunk-22 (with options) 
-List of 1
- $ echo: logi FALSE
-
-  |                                                                         |..........................................................       |  88%
-  ordinary text without R code
-
-  |                                                                         |...........................................................      |  90%
+  |                                                                         |.........................................................        |  87%
 label: unnamed-chunk-23 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |............................................................     |  92%
+  |                                                                         |..........................................................       |  89%
   ordinary text without R code
 
-  |                                                                         |.............................................................    |  94%
+  |                                                                         |...........................................................      |  91%
 label: unnamed-chunk-24 (with options) 
 List of 1
  $ echo: logi FALSE
 
-  |                                                                         |..............................................................   |  96%
+  |                                                                         |............................................................     |  93%
   ordinary text without R code
 
-  |                                                                         |................................................................ |  98%
+  |                                                                         |.............................................................    |  94%
 label: unnamed-chunk-25 (with options) 
 List of 1
  $ echo: logi FALSE
+
+  |                                                                         |...............................................................  |  96%
+  ordinary text without R code
+
+  |                                                                         |................................................................ |  98%
+label: unnamed-chunk-26 (with options) 
+List of 2
+ $ echo      : logi FALSE
+ $ fig.height: num 16
 
   |                                                                         |.................................................................| 100%
   ordinary text without R code
@@ -272,10 +249,9 @@ List of 1
 
 output file: raportPrzyslowki.knit.md
 
-/usr/bin/pandoc raportPrzyslowki.utf8.md --to html --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures --output '/home/bmackiewicz/projekty/kazik/Thu Jul 23 17:04:11 2015/raports/raportPrzyslowki.html' --smart --email-obfuscation none --self-contained --standalone --section-divs --template /home/bmackiewicz/R/x86_64-redhat-linux-gnu-library/3.2/rmarkdown/rmd/h/default.html --variable 'theme:bootstrap' --include-in-header /tmp/RtmpAa4Ica/rmarkdown-str6352b2f48f5.html --mathjax --variable 'mathjax-url:https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --no-highlight --variable highlightjs=/home/bmackiewicz/R/x86_64-redhat-linux-gnu-library/3.2/rmarkdown/rmd/h/highlight 
+/usr/bin/pandoc raportPrzyslowki.utf8.md --to html --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures --output '/home/bartosz/Git/Kazik/Wed Aug 19 16:18:34 2015/raports/raportPrzyslowki.html' --smart --email-obfuscation none --self-contained --standalone --section-divs --template /home/bartosz/R/x86_64-unknown-linux-gnu-library/3.2/rmarkdown/rmd/h/default.html --variable 'theme:bootstrap' --include-in-header /tmp/RtmpTfN54f/rmarkdown-str793621928121.html --mathjax --variable 'mathjax-url:https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --no-highlight --variable highlightjs=/home/bartosz/R/x86_64-unknown-linux-gnu-library/3.2/rmarkdown/rmd/h/highlight 
 
-Output created: Thu Jul 23 17:04:11 2015/raports/raportPrzyslowki.html
-> rmarkdown::render(file.path("raportEfektEpistemiczny.Rmd"), output_dir = file.path(date, "raports"))
+Output created: Wed Aug 19 16:18:34 2015/raports/raportPrzyslowki.html
 
 
 processing file: raportEfektEpistemiczny.Rmd
@@ -443,12 +419,11 @@ List of 1
 
 output file: raportEfektEpistemiczny.knit.md
 
-/usr/bin/pandoc raportEfektEpistemiczny.utf8.md --to html --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures --output '/home/bmackiewicz/projekty/kazik/Thu Jul 23 17:04:11 2015/raports/raportEfektEpistemiczny.html' --smart --email-obfuscation none --self-contained --standalone --section-divs --template /home/bmackiewicz/R/x86_64-redhat-linux-gnu-library/3.2/rmarkdown/rmd/h/default.html --variable 'theme:bootstrap' --include-in-header /tmp/RtmpAa4Ica/rmarkdown-str6354e3b597f.html --mathjax --variable 'mathjax-url:https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --no-highlight --variable highlightjs=/home/bmackiewicz/R/x86_64-redhat-linux-gnu-library/3.2/rmarkdown/rmd/h/highlight 
+/usr/bin/pandoc raportEfektEpistemiczny.utf8.md --to html --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures --output '/home/bartosz/Git/Kazik/Wed Aug 19 16:18:34 2015/raports/raportEfektEpistemiczny.html' --smart --email-obfuscation none --self-contained --standalone --section-divs --template /home/bartosz/R/x86_64-unknown-linux-gnu-library/3.2/rmarkdown/rmd/h/default.html --variable 'theme:bootstrap' --include-in-header /tmp/RtmpTfN54f/rmarkdown-str79364f97a3fd.html --mathjax --variable 'mathjax-url:https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --no-highlight --variable highlightjs=/home/bartosz/R/x86_64-unknown-linux-gnu-library/3.2/rmarkdown/rmd/h/highlight 
 
-Output created: Thu Jul 23 17:04:11 2015/raports/raportEfektEpistemiczny.html
+Output created: Wed Aug 19 16:18:34 2015/raports/raportEfektEpistemiczny.html
 Komunikat ostrzegawczy:
 W poleceniu 'chisq.test(GROUP, RESPONSE)': Chi-squared approximation may be incorrect
-> rmarkdown::render(file.path("raportWymyslonePrzyslowki.Rmd"), output_dir = file.path(date, "raports"))
 
 
 processing file: raportWymyslonePrzyslowki.Rmd
@@ -544,10 +519,9 @@ List of 1
 
 output file: raportWymyslonePrzyslowki.knit.md
 
-/usr/bin/pandoc raportWymyslonePrzyslowki.utf8.md --to html --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures --output '/home/bmackiewicz/projekty/kazik/Thu Jul 23 17:04:11 2015/raports/raportWymyslonePrzyslowki.html' --smart --email-obfuscation none --self-contained --standalone --section-divs --template /home/bmackiewicz/R/x86_64-redhat-linux-gnu-library/3.2/rmarkdown/rmd/h/default.html --variable 'theme:bootstrap' --include-in-header /tmp/RtmpAa4Ica/rmarkdown-str6354ff574cb.html --mathjax --variable 'mathjax-url:https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --no-highlight --variable highlightjs=/home/bmackiewicz/R/x86_64-redhat-linux-gnu-library/3.2/rmarkdown/rmd/h/highlight 
+/usr/bin/pandoc raportWymyslonePrzyslowki.utf8.md --to html --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures --output '/home/bartosz/Git/Kazik/Wed Aug 19 16:18:34 2015/raports/raportWymyslonePrzyslowki.html' --smart --email-obfuscation none --self-contained --standalone --section-divs --template /home/bartosz/R/x86_64-unknown-linux-gnu-library/3.2/rmarkdown/rmd/h/default.html --variable 'theme:bootstrap' --include-in-header /tmp/RtmpTfN54f/rmarkdown-str7936388c6a2a.html --mathjax --variable 'mathjax-url:https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --no-highlight --variable highlightjs=/home/bartosz/R/x86_64-unknown-linux-gnu-library/3.2/rmarkdown/rmd/h/highlight 
 
-Output created: Thu Jul 23 17:04:11 2015/raports/raportWymyslonePrzyslowki.html
-> rmarkdown::render(file.path("raportWiedzaINormy.Rmd"), output_dir = file.path(date, "raports"))
+Output created: Wed Aug 19 16:18:34 2015/raports/raportWymyslonePrzyslowki.html
 
 
 processing file: raportWiedzaINormy.Rmd
@@ -572,13 +546,237 @@ label: unnamed-chunk-2 (with options)
 List of 1
  $ echo: logi FALSE
 
-Następujące obiekty zostały zakryte _przez_ .GlobalEnv:
+  |                                                                         |....................                                             |  30%
+  ordinary text without R code
 
-    intentionality, obligation_exist, obligation_know
+  |                                                                         |.......................                                          |  35%
+label: unnamed-chunk-3 (with options) 
+List of 1
+ $ echo: logi FALSE
 
-Quitting from lines 72-75 (raportWiedzaINormy.Rmd) 
-Błąd w poleceniu 'chisq.test(GROUP, intentionality)':
-  'x' and 'y' must have the same length
-Wywołania: <Anonymous> ... withCallingHandlers -> withVisible -> eval -> eval -> chisq.test
+  |                                                                         |..........................                                       |  40%
+  ordinary text without R code
 
-Wykonywanie wstrzymane
+  |                                                                         |.............................                                    |  45%
+label: unnamed-chunk-4 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |................................                                 |  50%
+  ordinary text without R code
+
+  |                                                                         |....................................                             |  55%
+label: unnamed-chunk-5 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |.......................................                          |  60%
+  ordinary text without R code
+
+  |                                                                         |..........................................                       |  65%
+label: unnamed-chunk-6 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |..............................................                   |  70%
+  ordinary text without R code
+
+  |                                                                         |.................................................                |  75%
+label: unnamed-chunk-7 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |....................................................             |  80%
+  ordinary text without R code
+
+  |                                                                         |.......................................................          |  85%
+label: unnamed-chunk-8 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |..........................................................       |  90%
+  ordinary text without R code
+
+  |                                                                         |..............................................................   |  95%
+label: unnamed-chunk-9 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |.................................................................| 100%
+  ordinary text without R code
+
+
+output file: raportWiedzaINormy.knit.md
+
+/usr/bin/pandoc raportWiedzaINormy.utf8.md --to html --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures --output '/home/bartosz/Git/Kazik/Wed Aug 19 16:18:34 2015/raports/raportWiedzaINormy.html' --smart --email-obfuscation none --self-contained --standalone --section-divs --template /home/bartosz/R/x86_64-unknown-linux-gnu-library/3.2/rmarkdown/rmd/h/default.html --variable 'theme:bootstrap' --include-in-header /tmp/RtmpTfN54f/rmarkdown-str79365a4cbe78.html --mathjax --variable 'mathjax-url:https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --no-highlight --variable highlightjs=/home/bartosz/R/x86_64-unknown-linux-gnu-library/3.2/rmarkdown/rmd/h/highlight 
+
+Output created: Wed Aug 19 16:18:34 2015/raports/raportWiedzaINormy.html
+
+
+processing file: raportPostawy.Rmd
+  |                                                                         |                                                                 |   0%  |                                                                         |.....                                                            |   7%
+label: global_options (with options) 
+List of 1
+ $ include: logi FALSE
+
+  |                                                                         |.........                                                        |  14%
+  ordinary text without R code
+
+  |                                                                         |..............                                                   |  21%
+label: unnamed-chunk-1 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |...................                                              |  29%
+  ordinary text without R code
+
+  |                                                                         |.......................                                          |  36%
+label: unnamed-chunk-2 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |............................                                     |  43%
+  ordinary text without R code
+
+  |                                                                         |................................                                 |  50%
+label: unnamed-chunk-3 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |.....................................                            |  57%
+  ordinary text without R code
+
+  |                                                                         |..........................................                       |  64%
+label: unnamed-chunk-4 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |..............................................                   |  71%
+  ordinary text without R code
+
+  |                                                                         |...................................................              |  79%
+label: unnamed-chunk-5 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |........................................................         |  86%
+  ordinary text without R code
+
+  |                                                                         |............................................................     |  93%
+label: unnamed-chunk-6 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |.................................................................| 100%
+  ordinary text without R code
+
+
+output file: raportPostawy.knit.md
+
+/usr/bin/pandoc raportPostawy.utf8.md --to html --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures --output '/home/bartosz/Git/Kazik/Wed Aug 19 16:18:34 2015/raports/raportPostawy.html' --smart --email-obfuscation none --self-contained --standalone --section-divs --template /home/bartosz/R/x86_64-unknown-linux-gnu-library/3.2/rmarkdown/rmd/h/default.html --variable 'theme:bootstrap' --include-in-header /tmp/RtmpTfN54f/rmarkdown-str79365add1479.html --mathjax --variable 'mathjax-url:https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --no-highlight --variable highlightjs=/home/bartosz/R/x86_64-unknown-linux-gnu-library/3.2/rmarkdown/rmd/h/highlight 
+
+Output created: Wed Aug 19 16:18:34 2015/raports/raportPostawy.html
+Komunikaty ostrzegawcze:
+1: W poleceniu 'chisq.test(CHAIRMAN_ATTITUDE, GROUP)':
+  Chi-squared approximation may be incorrect
+2: W poleceniu 'chisq.test(ATTITUDE, GROUP)':
+  Chi-squared approximation may be incorrect
+
+
+processing file: raportKolizjaNorm.Rmd
+  |                                                                         |                                                                 |   0%  |                                                                         |....                                                             |   6%
+label: global_options (with options) 
+List of 1
+ $ include: logi FALSE
+
+  |                                                                         |........                                                         |  12%
+  ordinary text without R code
+
+  |                                                                         |............                                                     |  19%
+label: unnamed-chunk-1 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |................                                                 |  25%
+  ordinary text without R code
+
+  |                                                                         |....................                                             |  31%
+label: unnamed-chunk-2 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |........................                                         |  38%
+  ordinary text without R code
+
+  |                                                                         |............................                                     |  44%
+label: unnamed-chunk-3
+  |                                                                         |................................                                 |  50%
+  ordinary text without R code
+
+  |                                                                         |.....................................                            |  56%
+label: unnamed-chunk-4 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |.........................................                        |  62%
+  ordinary text without R code
+
+  |                                                                         |.............................................                    |  69%
+label: unnamed-chunk-5
+  |                                                                         |.................................................                |  75%
+  ordinary text without R code
+
+  |                                                                         |.....................................................            |  81%
+label: unnamed-chunk-6 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |.........................................................        |  88%
+  ordinary text without R code
+
+  |                                                                         |.............................................................    |  94%
+label: unnamed-chunk-7 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |.................................................................| 100%
+  ordinary text without R code
+
+
+output file: raportKolizjaNorm.knit.md
+
+/usr/bin/pandoc raportKolizjaNorm.utf8.md --to html --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures --output '/home/bartosz/Git/Kazik/Wed Aug 19 16:18:34 2015/raports/raportKolizjaNorm.html' --smart --email-obfuscation none --self-contained --standalone --section-divs --template /home/bartosz/R/x86_64-unknown-linux-gnu-library/3.2/rmarkdown/rmd/h/default.html --variable 'theme:bootstrap' --include-in-header /tmp/RtmpTfN54f/rmarkdown-str793669653b26.html --mathjax --variable 'mathjax-url:https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --no-highlight --variable highlightjs=/home/bartosz/R/x86_64-unknown-linux-gnu-library/3.2/rmarkdown/rmd/h/highlight 
+
+Output created: Wed Aug 19 16:18:34 2015/raports/raportKolizjaNorm.html
+
+
+processing file: info.Rmd
+  |                                                                         |                                                                 |   0%  |                                                                         |.........                                                        |  14%
+label: global_options (with options) 
+List of 1
+ $ include: logi FALSE
+
+  |                                                                         |...................                                              |  29%
+  ordinary text without R code
+
+  |                                                                         |............................                                     |  43%
+label: unnamed-chunk-1
+  |                                                                         |.....................................                            |  57%
+  ordinary text without R code
+
+  |                                                                         |..............................................                   |  71%
+label: unnamed-chunk-2
+  |                                                                         |........................................................         |  86%
+  ordinary text without R code
+
+  |                                                                         |.................................................................| 100%
+label: unnamed-chunk-3
+
+output file: info.knit.md
+
+/usr/bin/pandoc info.utf8.md --to html --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures --output '/home/bartosz/Git/Kazik/Wed Aug 19 16:18:34 2015/raports/info.html' --smart --email-obfuscation none --self-contained --standalone --section-divs --template /home/bartosz/R/x86_64-unknown-linux-gnu-library/3.2/rmarkdown/rmd/h/default.html --variable 'theme:bootstrap' --include-in-header /tmp/RtmpTfN54f/rmarkdown-str793664a7c1ef.html --mathjax --variable 'mathjax-url:https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --no-highlight --variable highlightjs=/home/bartosz/R/x86_64-unknown-linux-gnu-library/3.2/rmarkdown/rmd/h/highlight 
+
+Output created: Wed Aug 19 16:18:34 2015/raports/info.html
+> proc.time()
+użytkownik     system   upłynęło 
+    11.458      0.372     38.581 

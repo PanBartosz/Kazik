@@ -1,0 +1,288 @@
+<!doctype HTML>
+<meta charset = 'utf-8'>
+<html>
+  <head>
+    <link rel='stylesheet' href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.min.css'>
+    
+    <script src='//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js' type='text/javascript'></script>
+    <script src='//d3js.org/d3.v3.min.js' type='text/javascript'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.min.js' type='text/javascript'></script>
+    <script src='//nvd3.org/assets/lib/fisheye.js' type='text/javascript'></script>
+    
+     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
+     <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+    
+    <style>
+    .rChart {
+      display: block
+      margin: auto auto;
+      width: 100%;
+      height: 400px;
+    }
+    .bs-docs-example:after {
+      content: "";
+      background: transparent;
+      border: none;
+    }
+    </style>
+    
+  </head>
+  <body ng-app>
+      
+    <div class='container' ng-controller="DemoCtrl">
+  <div class='row'>
+    <div class='col-md-3'>
+      <form class='well'>
+        
+        <select
+          ng-model="selected" 
+          ng-options="c as c.value group by c.variable for c in filters" 
+          class="form-control" multiple size="10">
+        </select>
+      </form>
+    </div>
+    <div class='col-md-8'>
+      <div class="bs-docs-example">
+        <div id='chart71a2780c7606' class='rChart '>
+          <svg></svg>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+function DemoCtrl($scope){
+  $scope.opts = {
+ "dom": "chart71a2780c7606",
+"width":    700,
+"height":    400,
+"x": "ADVERB",
+"y": "Freq",
+"group": "RESPONSE",
+"type": "multiBarChart",
+"id": "chart71a2780c7606" 
+}
+  $scope.data = [
+ {
+ "RESPONSE": "Nie",
+"GROUP": "Harm",
+"ADVERB": "Wiedział & Agentywna",
+"Freq": 0.01204819277108 
+},
+{
+ "RESPONSE": "Nie",
+"GROUP": "Help",
+"ADVERB": "Wiedział & Agentywna",
+"Freq": 0.07594936708861 
+},
+{
+ "RESPONSE": "Nie",
+"GROUP": "Harm",
+"ADVERB": "Sądził & Kauzalna",
+"Freq": 0.5076923076923 
+},
+{
+ "RESPONSE": "Nie",
+"GROUP": "Help",
+"ADVERB": "Sądził & Kauzalna",
+"Freq":            0.2 
+},
+{
+ "RESPONSE": "Nie",
+"GROUP": "Harm",
+"ADVERB": "Sądził & Stan",
+"Freq": 0.4328358208955 
+},
+{
+ "RESPONSE": "Nie",
+"GROUP": "Help",
+"ADVERB": "Sądził & Stan",
+"Freq": 0.2794117647059 
+},
+{
+ "RESPONSE": "Nie",
+"GROUP": "Harm",
+"ADVERB": "Sądził & Agentywna",
+"Freq": 0.2549019607843 
+},
+{
+ "RESPONSE": "Nie",
+"GROUP": "Help",
+"ADVERB": "Sądził & Agentywna",
+"Freq":        0.65625 
+},
+{
+ "RESPONSE": "Nie",
+"GROUP": "Harm",
+"ADVERB": "Wiedział & Kauzalna",
+"Freq": 0.04651162790698 
+},
+{
+ "RESPONSE": "Nie",
+"GROUP": "Help",
+"ADVERB": "Wiedział & Kauzalna",
+"Freq":           0.25 
+},
+{
+ "RESPONSE": "Nie",
+"GROUP": "Harm",
+"ADVERB": "Wiedział & Stan",
+"Freq": 0.05454545454545 
+},
+{
+ "RESPONSE": "Nie",
+"GROUP": "Help",
+"ADVERB": "Wiedział & Stan",
+"Freq": 0.3015873015873 
+},
+{
+ "RESPONSE": "Tak",
+"GROUP": "Harm",
+"ADVERB": "Wiedział & Agentywna",
+"Freq": 0.9879518072289 
+},
+{
+ "RESPONSE": "Tak",
+"GROUP": "Help",
+"ADVERB": "Wiedział & Agentywna",
+"Freq": 0.9240506329114 
+},
+{
+ "RESPONSE": "Tak",
+"GROUP": "Harm",
+"ADVERB": "Sądził & Kauzalna",
+"Freq": 0.4923076923077 
+},
+{
+ "RESPONSE": "Tak",
+"GROUP": "Help",
+"ADVERB": "Sądził & Kauzalna",
+"Freq":            0.8 
+},
+{
+ "RESPONSE": "Tak",
+"GROUP": "Harm",
+"ADVERB": "Sądził & Stan",
+"Freq": 0.5671641791045 
+},
+{
+ "RESPONSE": "Tak",
+"GROUP": "Help",
+"ADVERB": "Sądził & Stan",
+"Freq": 0.7205882352941 
+},
+{
+ "RESPONSE": "Tak",
+"GROUP": "Harm",
+"ADVERB": "Sądził & Agentywna",
+"Freq": 0.7450980392157 
+},
+{
+ "RESPONSE": "Tak",
+"GROUP": "Help",
+"ADVERB": "Sądził & Agentywna",
+"Freq":        0.34375 
+},
+{
+ "RESPONSE": "Tak",
+"GROUP": "Harm",
+"ADVERB": "Wiedział & Kauzalna",
+"Freq": 0.953488372093 
+},
+{
+ "RESPONSE": "Tak",
+"GROUP": "Help",
+"ADVERB": "Wiedział & Kauzalna",
+"Freq":           0.75 
+},
+{
+ "RESPONSE": "Tak",
+"GROUP": "Harm",
+"ADVERB": "Wiedział & Stan",
+"Freq": 0.9454545454545 
+},
+{
+ "RESPONSE": "Tak",
+"GROUP": "Help",
+"ADVERB": "Wiedział & Stan",
+"Freq": 0.6984126984127 
+} 
+]
+  $scope.controls = [] 
+  $scope.filters = [
+ {
+ "variable": "GROUP",
+"value": "Harm" 
+},
+{
+ "variable": "GROUP",
+"value": "Help" 
+} 
+]
+  
+  $scope.drawChart = function(){
+    drawChart($scope.opts, $scope.data)  
+  }
+  
+  $scope.$watch('selected', function(){
+    var keys = _.pluck($scope.selected, "variable")
+    var values = _.pluck($scope.selected, "value")
+    $scope.opts.selected = _.zipObject(keys, values)
+  }) 
+  
+  $scope.$watch('opts',function(){
+    $scope.drawChart()
+	}, true)
+}  
+
+function drawChart(opts, data){ 
+  if (Object.keys(opts.selected).length > 0){
+    data = _.filter(data, opts.selected)
+  }
+  
+  if(!(opts.type==="pieChart" || opts.type==="sparklinePlus" || opts.type==="bulletChart")) {
+    var data = d3.nest()
+      .key(function(d){
+        //return opts.group === undefined ? 'main' : d[opts.group]
+        //instead of main would think a better default is opts.x
+       return opts.group === undefined ? opts.y : d[opts.group];
+      }).entries(data);
+  }
+      
+  if (opts.disabled != undefined){
+    data.map(function(d, i){
+      d.disabled = opts.disabled[i]
+    })
+  }
+	
+	nv.addGraph(function() {
+		var chart = nv.models[opts.type]()
+			.x(function(d) { return d[opts.x] })
+			.y(function(d) { return d[opts.y] })
+			.width(opts.width)
+			.height(opts.height)
+		
+	
+          
+	
+
+	
+	
+	
+
+	d3.select("#" + opts.id + ' svg')
+  // .empty()
+		.datum(data)
+		.transition().duration(500)
+		.call(chart);
+	
+	 nv.utils.windowResize(chart.update);
+	 return chart;
+  });
+};
+</script>
+    
+  </body>
+</html>

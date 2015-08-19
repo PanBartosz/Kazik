@@ -1,0 +1,307 @@
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
+library(lattice)
+```
+
+```{r, echo=FALSE, message=FALSE}
+library(dplyr)
+data <- read.csv("Fri Jul 31 01:25:00 2015/cleanData28553.csv")
+adverbs <-c("Specjalnie", "Świadomie", "Celowo", "Umyślnie", "Brak przysłówka",
+            "Chciał", "Z rozmysłem", "Zamierzał")
+data <- data[which(data$ADVERB %in% adverbs),]
+data.specjalnie <- filter(data, ADVERB=="Specjalnie")
+data.swiadomie <- filter(data, ADVERB=="Świadomie")
+data.celowo <- filter(data, ADVERB=="Celowo")
+data.umyslnie <- filter(data, ADVERB=="Umyślnie")
+data.brak <- filter(data, ADVERB=="Brak przysłówka")
+data.zrozmyslem <- filter(data, ADVERB=="Z rozmysłem")
+
+data2 <- read.csv("Fri Jul 31 00:51:49 2015/cleanKasiaBartosz2169464.csv")
+adverbs2 <-c("Umyślnie", "Z rozmysłem")
+data.umyslnie2 <- filter(data, ADVERB=="Umyślnie")
+data.zrozmyslem2 <- filter(data, ADVERB=="Z rozmysłem")
+
+```
+
+
+Replikacja efektu Knobe'a na polskich przysłówkach - raport z badania
+=====================================================================
+##Autorzy badania: Katarzyna Kuś, Bartosz Maćkiewicz
+
+## Cel badania: 
+Replikacja efektu Knobe (Knobe, 2003) na polskich przysłówkach.
+
+## Konstrukcja badania:
+Badanie było replikacją oryginalnego badania J. Knobe'a.
+W języku polskim angielskiemu terminowi "intentionally", użytemu przez Knobe'a odowiada cała klasa bliskoznacznych wyrażeń. 
+Do badania wyobraliśmy następujące przysłówki i wyrażenia czasownikowe:
+
+- Specjalnie
+- Świadomie
+- Celowo
+- Umyślnie
+- Z rozmysłem
+- Chciał
+- Zamierzał
+
+Przeprowadziliśmy również modyfikację badania Knobe'a, w którym w miejscu "intentionally" nie pojawiło się żadne wyrażenie.  
+
+Każdemu z badanych zaprezentowana był jeden z dwóch scenariuszy, w których w miejscu oznaczonym [i-modyfikator] stał odpowiedni przysłówek lub inne wyrażenie, wskazujące na intencjonalność działania :
+
+**Scenariusz HARM**
+
+Wicedyrektor zwraca się do dyrektora pewnej firmy:
+
+„Myślimy o wdrożeniu nowego programu. Pozwoli nam zwiększyć zyski, ale zaszkodzi środowisku”.
+
+Dyrektor odpowiada:
+
+„Nie obchodzi mnie szkodzenie środowisku. Chcę tylko zwiększyć zyski. Wdrażamy program”.
+
+Program został wdrożony i rzeczywiście zaszkodził środowisku.
+
+Czy dyrektor [i-modyfikator] zaszkodził środowisku?
+
+**Scenariusz HELP**
+
+Wicedyrektor zwraca się do dyrektora pewnej firmy:
+
+„Myślimy o wdrożeniu nowego programu. Pozwoli nam zwiększyć zyski i pomoże środowisku”.
+
+Dyrektor odpowiada:
+
+„Nie obchodzi mnie pomaganie środowisku. Chcę tylko zwiększyć zyski. Wdrażamy program”.
+
+Program został wdrożony i rzeczywiście pomógł środowisku.
+
+Czy dyrektor [i-modyfikator] pomógł środowisku?
+
+
+Przeprowadziliśmy również badanie na dwóch wyrażeniach: "z rozmysłem" oraz "umyślnie", w których badani konfrontowani byli ze zmienionymi scenariuszami.
+Zamiana ta polegała na usunięciu fragmentu wypowiedzi dyrektora: *Nie obchodzi mnie pomaganie środowisku. Chcę tylko zwiększyć zyski*. Eksperyment miał na celu rozstrzygnięcie na ile wysokie wystąpienie efektu Knobe'a w badaniu z wyrażeniem "z rozmysłem" związane jest z tym, że konotuje ono pewną deliberację i nie jest czystym i-modyfikatorem.
+
+## Technikalia
+Każdemu z badanych zaprezentowany był tylko jeden scenariusz. Czas na odpowiedź był nieograniczony. Badanie odbyło się za pośrednictwem internetowego systemu ankietowego Limesurvey na platformie uniwersyteckiej Kognilab. 
+
+##Wyniki:
+
+###Specjalnie:
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.specjalnie)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+data.specjalnie<- data.specjalnie[which(data.specjalnie$RESPONSE !=0),]
+attach(data.specjalnie)
+chisq.test(GROUP, RESPONSE)
+detach(data.specjalnie)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+data.specjalnie<- data.specjalnie[which(data.specjalnie$RESPONSE !=0),]
+attach(data.specjalnie)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.specjalnie)
+```
+
+###Świadomie
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.swiadomie)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+data.swiadomie<- data.swiadomie[which(data.swiadomie$RESPONSE !=0),]
+attach(data.swiadomie)
+chisq.test(GROUP, RESPONSE)
+detach(data.swiadomie)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+data.swiadomie<- data.swiadomie[which(data.swiadomie$RESPONSE !=0),]
+attach(data.swiadomie)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.swiadomie)
+```
+
+###Celowo
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.celowo)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+data.celowo<- data.celowo[which(data.celowo$RESPONSE !=0),]
+attach(data.celowo)
+chisq.test(GROUP, RESPONSE)
+detach(data.celowo)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+data.celowo<- data.celowo[which(data.celowo$RESPONSE !=0),]
+attach(data.celowo)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.celowo)
+```
+
+###Z rozmysłem
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.zrozmyslem)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+data.zrozmyslem<- data.zrozmyslem[which(data.zrozmyslem$RESPONSE !=0),]
+attach(data.zrozmyslem)
+chisq.test(GROUP, RESPONSE)
+detach(data.zrozmyslem)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+data.zrozmyslem<- data.zrozmyslem[which(data.zrozmyslem$RESPONSE !=0),]
+attach(data.zrozmyslem)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.zrozmyslem)
+```
+
+###Umyślnie
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.umyslnie)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+data.umyslnie<- data.umyslnie[which(data.umyslnie$RESPONSE !=0),]
+attach(data.umyslnie)
+chisq.test(GROUP, RESPONSE)
+detach(data.umyslnie)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+data.umyslnie<- data.umyslnie[which(data.umyslnie$RESPONSE !=0),]
+attach(data.umyslnie)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.umyslnie)
+```
+
+###Brak przysłówka
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.brak)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+data.brak<- data.brak[which(data.brak$RESPONSE !=0),]
+attach(data.brak)
+chisq.test(GROUP, RESPONSE)
+detach(data.brak)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+data.brak<- data.brak[which(data.brak$RESPONSE !=0),]
+attach(data.brak)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.brak)
+```
+
+###Umyślnie w scenariuszach bez deliberacji
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.umyslnie2)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+data.umyslnie2<- data.umyslnie2[which(data.umyslnie2$RESPONSE !=0),]
+attach(data.umyslnie2)
+chisq.test(GROUP, RESPONSE)
+detach(data.umyslnie2)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+data.umyslnie2<- data.umyslnie2[which(data.umyslnie2$RESPONSE !=0),]
+attach(data.umyslnie2)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.umyslnie2)
+```
+
+###Z rozmysłem w scenariuszach bez deliberacji
+
+```{r, echo=FALSE}
+xtabs(~ RESPONSE + GROUP, data = data.zrozmyslem2)
+```
+
+####Test istotności statystycznej:
+
+```{r, echo=FALSE}
+data.zrozmyslem2<- data.zrozmyslem2[which(data.zrozmyslem2$RESPONSE !=0),]
+attach(data.zrozmyslem2)
+chisq.test(GROUP, RESPONSE)
+detach(data.zrozmyslem2)
+```
+
+####Wykres:
+
+```{r, echo=FALSE}
+data.zrozmyslem2<- data.umyslnie[which(data.zrozmyslem2$RESPONSE !=0),]
+attach(data.zrozmyslem2)
+barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
+legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+detach(data.zrozmyslem2)
+```
+
+
+##Tabela zbiorcza:
+
+```{r, echo=FALSE, fig.height=6, fig.width=16}
+data<- data[which(data$RESPONSE !=0),]
+attach(data)
+xtable <-xtabs(~ RESPONSE + GROUP + ADVERB, drop.unused.levels = TRUE)
+xtable[1:2,1:2,1] <- prop.table(xtable[1:2,1:2,1],2)
+xtable[1:2,1:2,2] <- prop.table(xtable[1:2,1:2,2],2)
+xtable[1:2,1:2,3] <- prop.table(xtable[1:2,1:2,3],2)
+xtable[1:2,1:2,4] <- prop.table(xtable[1:2,1:2,4],2)
+xtable[1:2,1:2,5] <- prop.table(xtable[1:2,1:2,5],2)
+xtable[1:2,1:2,6] <- prop.table(xtable[1:2,1:2,6],2)
+xtable[1:2,1:2,7] <- prop.table(xtable[1:2,1:2,7],2)
+xtable[1:2,1:2,8] <- prop.table(xtable[1:2,1:2,8],2)
+barchart(RESPONSE ~ GROUP + ADVERB ,data = xtable, horizontal = 0, stack = TRUE, layout=c(8,2))
+detach(data)
+```
+
+##Komentarz
