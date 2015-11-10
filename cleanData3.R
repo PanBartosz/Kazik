@@ -18,7 +18,7 @@ colnames(rawData)[54] <- "Education_other"
 colnames(rawData)[55] <- "Philosophical_Education"
 colnames(rawData)[56] <- "Previous_survey"
 # Dodanie kolumny z grupą
-rawData$GROUP <- ifelse(rawData$LOSUJ %in% c(1,3,5,7,9,11,13,16,18,19,210), "Harm", "Help")
+rawData$GROUP <- ifelse(rawData$LOSUJ %in% c(1,3,5,7,9,11,12,15,17,19,21), "Harm", "Help")
 rawData$GROUP <- as.factor(rawData$GROUP)
 
 # Podział danych na badania
@@ -182,8 +182,10 @@ write.csv(cleanDataKasiaBartosz, file = file.path(date, "cleanKasiaBartosz169464
 adverbs = c("Sądził & Kauzalna", "Sądził & Kauzalna", "Sądził & Stan", "Sądził & Stan")
 # Dodanie kolumny z przysłówkami
 rawDataIgnacySlawek2 <- mutate(rawDataIgnacySlawek2, ADVERB = adverbs[LOSUJ-14])
+## Hahaha, co to jest? Nawet boje się próbować domyślać jak to działa. 
+
 # Dodanie kolumny z grupą
-rawDataIgnacySlawek2$GROUP <- ifelse(rawDataIgnacySlawek2$LOSUJ %in% c(16,18), "Harm", "Help")
+rawDataIgnacySlawek2$GROUP <- ifelse(rawDataIgnacySlawek2$LOSUJ %in% c(15,17), "Harm", "Help")
 rawDataIgnacySlawek2$RESPONSE <-as.numeric(rawDataIgnacySlawek2$Sadzi2wdrozenieHARM)-1 + 
   as.numeric(rawDataIgnacySlawek2$Sadzi2wdrozenieHELP)-1 +
   as.numeric(rawDataIgnacySlawek2$Sadzi3stansieHARM)-1 +

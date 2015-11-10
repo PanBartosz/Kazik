@@ -20,10 +20,16 @@ Tutaj też :)
 
 ## Wyniki
 
-###Świadomie
+### Pytanie o środowisko
 
 ```{r, echo=FALSE}
 xtabs(~ Environment_response + GROUP + ACTION, data = data)
+```
+
+### Pytanie o śmierć głodową
+
+```{r, echo=FALSE}
+xtabs(~ Starvation_response + GROUP + ACTION, data = data)
 ```
 
 ####Test istotności statystycznej:

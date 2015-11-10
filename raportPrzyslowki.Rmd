@@ -11,6 +11,7 @@ data <- read.csv(file.path(date, "cleanData28553.csv"))
 adverbs <-c("Specjalnie", "Świadomie", "Celowo", "Umyślnie", "Brak przysłówka",
             "Chciał", "Z rozmysłem", "Zamierzał")
 data <- data[which(data$ADVERB %in% adverbs),]
+data$RESPONSE <- factor(data$RESPONSE,levels(data$RESPONSE)[c(1,3,2)])
 data.specjalnie <- filter(data, ADVERB=="Specjalnie")
 data.swiadomie <- filter(data, ADVERB=="Świadomie")
 data.celowo <- filter(data, ADVERB=="Celowo")
@@ -108,7 +109,7 @@ detach(data.specjalnie)
 data.specjalnie<- data.specjalnie[which(data.specjalnie$RESPONSE !=0),]
 attach(data.specjalnie)
 barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
-legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+legend("topright", c("Tak", "Nie"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
 detach(data.specjalnie)
 ```
 
@@ -133,7 +134,7 @@ detach(data.swiadomie)
 data.swiadomie<- data.swiadomie[which(data.swiadomie$RESPONSE !=0),]
 attach(data.swiadomie)
 barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
-legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+legend("topright", c("Tak", "Nie"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
 detach(data.swiadomie)
 ```
 
@@ -158,7 +159,7 @@ detach(data.celowo)
 data.celowo<- data.celowo[which(data.celowo$RESPONSE !=0),]
 attach(data.celowo)
 barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
-legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+legend("topright", c("Tak", "Nie"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
 detach(data.celowo)
 ```
 
@@ -183,7 +184,7 @@ detach(data.zrozmyslem)
 data.zrozmyslem<- data.zrozmyslem[which(data.zrozmyslem$RESPONSE !=0),]
 attach(data.zrozmyslem)
 barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
-legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+legend("topright", c("Tak", "Nie"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
 detach(data.zrozmyslem)
 ```
 
@@ -208,7 +209,7 @@ detach(data.umyslnie)
 data.umyslnie<- data.umyslnie[which(data.umyslnie$RESPONSE !=0),]
 attach(data.umyslnie)
 barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
-legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+legend("topright", c("Tak", "Nie"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
 detach(data.umyslnie)
 ```
 
@@ -233,7 +234,7 @@ detach(data.brak)
 data.brak<- data.brak[which(data.brak$RESPONSE !=0),]
 attach(data.brak)
 barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
-legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+legend("topright", c("Tak", "Nie"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
 detach(data.brak)
 ```
 
@@ -258,7 +259,7 @@ detach(data.umyslnie2)
 data.umyslnie2<- data.umyslnie2[which(data.umyslnie2$RESPONSE !=0),]
 attach(data.umyslnie2)
 barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
-legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+legend("topright", c("Tak", "Nie"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
 detach(data.umyslnie2)
 ```
 
@@ -280,10 +281,10 @@ detach(data.zrozmyslem2)
 ####Wykres:
 
 ```{r, echo=FALSE}
-data.zrozmyslem2<- data.umyslnie[which(data.zrozmyslem2$RESPONSE !=0),]
+data.zrozmyslem2<- data.zrozmyslem2[which(data.zrozmyslem2$RESPONSE !=0),]
 attach(data.zrozmyslem2)
 barplot(prop.table(xtabs(~ RESPONSE + GROUP, drop.unused.levels = T), 2))
-legend("topright", c("Nie", "Tak"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
+legend("topright", c("Tak", "Nie"), fill=c(grey.colors(2)[1], grey.colors(2)[2]))
 detach(data.zrozmyslem2)
 ```
 
@@ -304,7 +305,9 @@ xtable[1:2,1:2,7] <- prop.table(xtable[1:2,1:2,7],2)
 xtable[1:2,1:2,8] <- prop.table(xtable[1:2,1:2,8],2)
 barchart(xtable, groups = ADVERB, horizontal = 0)
 detach(data)
+```
 
+```{r, echo=FALSE, fig.width=8}
 DATA <- as.data.frame(xtable)
 DATA$RESPONSE <- factor(DATA$RESPONSE, levels = levels(DATA$RESPONSE)[c(1,2)])
 DATA <- DATA[order(DATA$RESPONSE), ]
