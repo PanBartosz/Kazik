@@ -23,6 +23,7 @@ detach(data)
 DATA <- as.data.frame(xtable)
 DATA$RESPONSE <- factor(DATA$RESPONSE, levels = levels(DATA$RESPONSE)[c(1,2)])
 DATA <- DATA[order(DATA$RESPONSE), ]
+DATA$RESPONSE <- factor(DATA$RESPONSE,levels(DATA$RESPONSE)[c(2,1)])
 
 data1 <- read.csv("cleanData28553.csv")
 data2 <- read.csv("cleanIgnacySlawek2169464.csv")
@@ -48,6 +49,7 @@ detach(edata)
 EDATA <- as.data.frame(extable)
 EDATA$RESPONSE <- factor(EDATA$RESPONSE, levels = levels(EDATA$RESPONSE)[c(1,2)])
 EDATA <- EDATA[order(EDATA$RESPONSE), ]
+EDATA$RESPONSE <- factor(EDATA$RESPONSE,levels(EDATA$RESPONSE)[c(2,1)])
 
 shinyServer(
   function(input, output) {
