@@ -1,0 +1,266 @@
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE, fig.width=7.5)
+library(car)
+library(agricolae)
+library(ggplot2)
+library(scales)
+library(grid)
+library(ggthemes)
+```
+
+```{r, echo=FALSE}
+data <- read.csv("results-survey254952.csv")
+
+
+
+data <- data[which(data$MULTIMULTI == 1),] ## 
+data <- data[which(data$MULTILOTEK %in% c(5,6)),] ## 
+
+data$ACTION <- ifelse(data$MULTILOTEK == 5, "Introduced", "Not introduced")
+
+
+data$SUWAK_1 <-rowSums(
+  cbind(data$PRIMKRUKIWRONYSUWAKI.1..1,
+        data$PRIMKRUKIWRONYSUWAKI.1.,
+        data$PRIMNOTKRUKIWRONYSUW.1.,
+        data$PRIMNOTKRUKIWRONYSUW.1..1), na.rm = TRUE)
+
+data$SUWAK_2 <-rowSums(
+  cbind(data$PRIMKRUKIWRONYSUWAKI.2..1,
+        data$PRIMKRUKIWRONYSUWAKI.2.,
+        data$PRIMNOTKRUKIWRONYSUW.2.,
+        data$PRIMNOTKRUKIWRONYSUW.2..1), na.rm = TRUE)
+
+data$SUWAK_3 <-rowSums(
+  cbind(data$PRIMKRUKIWRONYSUWAKI.3..1,
+        data$PRIMKRUKIWRONYSUWAKI.3.,
+        data$PRIMNOTKRUKIWRONYSUW.3.,
+        data$PRIMNOTKRUKIWRONYSUW.3..1), na.rm = TRUE)
+
+data$SUWAK_4 <-rowSums(
+  cbind(data$PRIMKRUKIWRONYSUWAKI.4..1,
+        data$PRIMKRUKIWRONYSUWAKI.4.,
+        data$PRIMNOTKRUKIWRONYSUW.4.,
+        data$PRIMNOTKRUKIWRONYSUW.4..1), na.rm = TRUE)
+
+data$SUWAK_5 <-rowSums(
+  cbind(data$PRIMKRUKIWRONYSUWAKI.5..1,
+        data$PRIMKRUKIWRONYSUWAKI.5.,
+        data$PRIMNOTKRUKIWRONYSUW.5.,
+        data$PRIMNOTKRUKIWRONYSUW.5..1), na.rm = TRUE)
+
+
+
+s1 <- as.data.frame(cbind(data$ACTION, data$SUWAK_1))
+s2 <- as.data.frame(cbind(data$ACTION, data$SUWAK_2))
+s3 <- as.data.frame(cbind(data$ACTION, data$SUWAK_3))
+s4 <- as.data.frame(cbind(data$ACTION, data$SUWAK_4))
+s5 <- as.data.frame(cbind(data$ACTION, data$SUWAK_5))
+
+s1$PYTANIE <- 1
+s2$PYTANIE <- 2
+s3$PYTANIE <- 3
+s4$PYTANIE <- 4
+s5$PYTANIE <- 5
+
+data_s <- rbind(s1,s2,s3,s4,s5)
+data_s$V2 <- as.numeric(data_s$V2)-1
+
+HSD.test(lm(V2~PYTANIE, data=data_s[which(data_s$V1=="Introduced"),]), c("PYTANIE"), console=TRUE)
+HSD.test(lm(V2~PYTANIE, data=data_s[which(data_s$V1=="Not introduced"),]), c("PYTANIE"), console=TRUE)
+
+
+## Przyczyna Zmiana?
+data_s$PRZYCZYNA_Z <- character(nrow(data_s))
+data_s[which(data_s$V1 == "Introduced"),]$PRZYCZYNA_Z <- ifelse((data_s[which(data_s$V1 == "Introduced"),]$PYTANIE %in% c(1,3,5)), "Tak", "Nie")
+
+data_s[which(data_s$V1 == "Not introduced"),]$PRZYCZYNA_Z <- ifelse((data_s[which(data_s$V1 == "Not introduced"),]$PYTANIE %in% c(2,4)), "Tak", "Nie")
+
+## Skutek Zmiana?
+data_s$SKUTEK_Z <- character(nrow(data_s))
+data_s[which(data_s$V1 == "Introduced"),]$SKUTEK_Z <- ifelse((data_s[which(data_s$V1 == "Introduced"),]$PYTANIE %in% c(1,2,5)), "Tak", "Nie")
+
+data_s[which(data_s$V1 == "Not introduced"),]$SKUTEK_Z <- ifelse((data_s[which(data_s$V1 == "Not introduced"),]$PYTANIE %in% c(3,4)), "Tak", "Nie")
+
+data_s_kw <- data_s
+
+HSD.test(lm(V2 ~ PRZYCZYNA_Z*SKUTEK_Z, data=data_s_kw), c("PRZYCZYNA_Z", "SKUTEK_Z"), console = TRUE)
+
+
+```
+
+
+
+```{r, echo=FALSE}
+
+data <- read.csv("results-survey254952.csv")
+
+data <- data[which(data$MULTIMULTI == 1),] ## Tylko PRIMY
+data <- data[which(data$MULTILOTEK != 5),] ## Wywalamy kruki
+data <- data[which(data$MULTILOTEK != 6),] ## Wywalamy kruki cd.
+
+
+data$ACTION <- ifelse(data$MULTILOTEK %in% c(1,3), "Introduced", "Not introduced")
+data$GROUP <- ifelse(data$MULTILOTEK %in% c(1,2), "Harm", "Help")
+
+
+## Suwak I
+
+data$SUWAK_1 <-rowSums(
+  cbind(data$PRIMHARMPRIMSUWAK.1.,
+        data$PRIMHARMPRIMSUWAK.1..1,
+        data$PRIMHARMPRIMSUWAKI.1..1,
+        data$PRIMHARMPRIMSUWAKI.1.,
+        data$PRIMHELPPRIMSUWAKI.1.,
+        data$PRIMHELPPRIMSUWAKI.1..1,
+        data$PRIMHELPBISSUWAKI.1.,
+        data$PRIMHELPBISSUWAKI.1..1), na.rm = TRUE)
+
+data$SUWAK_2 <-rowSums(
+  cbind(data$PRIMHARMPRIMSUWAK.2.,
+        data$PRIMHARMPRIMSUWAK.2..1,
+        data$PRIMHARMPRIMSUWAKI.2..1,
+        data$PRIMHARMPRIMSUWAKI.2.,
+        data$PRIMHELPPRIMSUWAKI.2.,
+        data$PRIMHELPPRIMSUWAKI.2..1,
+        data$PRIMHELPBISSUWAKI.2.,
+        data$PRIMHELPBISSUWAKI.2..1), na.rm = TRUE)
+
+data$SUWAK_3 <-rowSums(
+  cbind(data$PRIMHARMPRIMSUWAK.3.,
+        data$PRIMHARMPRIMSUWAK.3..1,
+        data$PRIMHARMPRIMSUWAKI.3..1,
+        data$PRIMHARMPRIMSUWAKI.3.,
+        data$PRIMHELPPRIMSUWAKI.3.,
+        data$PRIMHELPPRIMSUWAKI.3..1,
+        data$PRIMHELPBISSUWAKI.3.,
+        data$PRIMHELPBISSUWAKI.3..1), na.rm = TRUE)
+
+data$SUWAK_4 <-rowSums(
+  cbind(data$PRIMHARMPRIMSUWAK.4.,
+        data$PRIMHARMPRIMSUWAK.4..1,
+        data$PRIMHARMPRIMSUWAKI.4..1,
+        data$PRIMHARMPRIMSUWAKI.4.,
+        data$PRIMHELPPRIMSUWAKI.4.,
+        data$PRIMHELPPRIMSUWAKI.4..1,
+        data$PRIMHELPBISSUWAKI.4.,
+        data$PRIMHELPBISSUWAKI.4..1), na.rm = TRUE)
+
+data$SUWAK_5 <-rowSums(
+  cbind(data$PRIMHARMPRIMSUWAK.5.,
+        data$PRIMHARMPRIMSUWAK.5..1,
+        data$PRIMHARMPRIMSUWAKI.5..1,
+        data$PRIMHARMPRIMSUWAKI.5.,
+        data$PRIMHELPPRIMSUWAKI.5.,
+        data$PRIMHELPPRIMSUWAKI.5..1,
+        data$PRIMHELPBISSUWAKI.5.,
+        data$PRIMHELPBISSUWAKI.5..1), na.rm = TRUE)
+
+s1 <- as.data.frame(cbind(data$GROUP, data$ACTION, data$SUWAK_1))
+s2 <- as.data.frame(cbind(data$GROUP, data$ACTION, data$SUWAK_2))
+s3 <- as.data.frame(cbind(data$GROUP, data$ACTION, data$SUWAK_3))
+s4 <- as.data.frame(cbind(data$GROUP, data$ACTION, data$SUWAK_4))
+s5 <- as.data.frame(cbind(data$GROUP, data$ACTION, data$SUWAK_5))
+
+s1$PYTANIE <- 1
+s2$PYTANIE <- 2
+s3$PYTANIE <- 3
+s4$PYTANIE <- 4
+s5$PYTANIE <- 5
+
+data_s <- rbind(s1,s2,s3,s4,s5)
+
+
+data_s$V3 <- as.numeric(data_s$V3)-1
+
+## Przyczyna Zmiana?
+data_s$PRZYCZYNA_Z <- character(nrow(data_s))
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Introduced"),]$PRZYCZYNA_Z <- ifelse((data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Introduced"),]$PYTANIE %in% c(1,3,5)), "Tak", "Nie")
+
+
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Not introduced"),]$PRZYCZYNA_Z <- ifelse((data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Not introduced"),]$PYTANIE %in% c(2,4)), "Tak", "Nie")
+
+
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Introduced"),]$PRZYCZYNA_Z <- ifelse((data_s[which(data_s$V1 == "Help" & data_s$V2 == "Introduced"),]$PYTANIE %in% c(1,3)), "Tak", "Nie")
+
+
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced"),]$PRZYCZYNA_Z <- ifelse((data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced"),]$PYTANIE %in% c(2,4,5)), "Tak", "Nie")
+
+
+
+
+
+## Skutek Zmiana?
+data_s$SKUTEK_Z <- character(nrow(data_s))
+
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Introduced"),]$SKUTEK_Z <- ifelse((data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Introduced"),]$PYTANIE %in% c(1,2,4)), "Tak", "Nie")
+
+
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Not introduced"),]$SKUTEK_Z <- ifelse((data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Not introduced"),]$PYTANIE %in% c(3,5)), "Tak", "Nie")
+
+
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Introduced"),]$SKUTEK_Z <- ifelse((data_s[which(data_s$V1 == "Help" & data_s$V2 == "Introduced"),]$PYTANIE %in% c(1,4,5)), "Tak", "Nie")
+
+
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced"),]$SKUTEK_Z <- ifelse((data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced"),]$PYTANIE %in% c(2,3)), "Tak", "Nie")
+
+## 
+
+Anova(lm(V3 ~ PRZYCZYNA_Z*SKUTEK_Z, data=data_s))
+HSD.test(lm(V3 ~ PRZYCZYNA_Z*SKUTEK_Z, data=data_s), c("PRZYCZYNA_Z", "SKUTEK_Z"), console = TRUE)
+
+
+HSD.test(lm(V3 ~ PRZYCZYNA_Z*SKUTEK_Z, data=data_s[which(
+  data_s$V2 == "Introduced" & data_s$V1 == "Harm"),]), c("PRZYCZYNA_Z", "SKUTEK_Z"), console = TRUE)
+
+HSD.test(lm(V3 ~ PRZYCZYNA_Z*SKUTEK_Z, data=data_s[which(
+  data_s$V2 == "Introduced" & data_s$V1 == "Help"),]), c("PRZYCZYNA_Z", "SKUTEK_Z"), console = TRUE)
+
+HSD.test(lm(V3 ~ PRZYCZYNA_Z*SKUTEK_Z, data=data_s[which(
+  data_s$V2 == "Not introduced" & data_s$V1 == "Help"),]), c("PRZYCZYNA_Z", "SKUTEK_Z"), console = TRUE)
+
+HSD.test(lm(V3 ~ PRZYCZYNA_Z*SKUTEK_Z, data=data_s[which(
+  data_s$V2 == "Not introduced" & data_s$V1 == "Harm"),]), c("PRZYCZYNA_Z", "SKUTEK_Z"), console = TRUE)
+
+
+
+## PO WYWALENIU ZAKAZU (BO JEST KUTASEM)
+
+data_s1 <- data_s[which(!(data_s$V1 == "Help" & data_s$PYTANIE %in% c(2))),]
+
+Anova(lm(V3 ~ PRZYCZYNA_Z*SKUTEK_Z, data=data_s1), type=3)
+
+contrasts = c("contr.sum")
+
+
+Anova(lm(V3 ~ PRZYCZYNA_Z*SKUTEK_Z, data=data_s1[which(
+  data_s1$V2 == "Introduced" & data_s1$V1 == "Harm"),]))
+
+duncan.test(lm(V3 ~ PRZYCZYNA_Z*SKUTEK_Z, data=data_s1[which(
+  data_s1$V2 == "Introduced" & data_s1$V1 == "Harm"),]), c("PRZYCZYNA_Z", "SKUTEK_Z"), console = TRUE)
+
+
+Anova(lm(V3 ~ PRZYCZYNA_Z*SKUTEK_Z, data=data_s1[which(
+  data_s1$V2 == "Introduced" & data_s1$V1 == "Help"),]))
+
+
+duncan.test(lm(V3 ~ PRZYCZYNA_Z*SKUTEK_Z, data=data_s1[which(
+  data_s1$V2 == "Introduced" & data_s1$V1 == "Help"),]), c("PRZYCZYNA_Z", "SKUTEK_Z"), console = TRUE)
+
+
+
+Anova(lm(V3 ~ PRZYCZYNA_Z*SKUTEK_Z, data=data_s1[which(
+  data_s1$V2 == "Not introduced" & data_s1$V1 == "Help"),]))
+
+duncan.test(lm(V3 ~ PRZYCZYNA_Z*SKUTEK_Z, data=data_s1[which(
+  data_s1$V2 == "Not introduced" & data_s1$V1 == "Help"),]), c("PRZYCZYNA_Z", "SKUTEK_Z"), console = TRUE)
+
+
+Anova(lm(V3 ~ PRZYCZYNA_Z*SKUTEK_Z, data=data_s1[which(
+  data_s1$V2 == "Not introduced" & data_s1$V1 == "Harm"),]))
+
+duncan.test(lm(V3 ~ PRZYCZYNA_Z*SKUTEK_Z, data=data_s1[which(
+  data_s1$V2 == "Not introduced" & data_s1$V1 == "Harm"),]), c("PRZYCZYNA_Z", "SKUTEK_Z"), console = TRUE)
+```
+
+

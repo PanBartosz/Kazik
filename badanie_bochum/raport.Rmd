@@ -1,0 +1,538 @@
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE, fig.width=10)
+library(car)
+library(agricolae)
+
+```
+
+
+```{r, echo=FALSE}
+data <- read.csv("wyniki.csv")
+require(car)
+# KODOWANIE URWANIA RYNNY
+
+
+n1 <- rowSums(cbind(data$PIERWSZE1.1.,
+                    data$PIERWSZE2.2.,
+                    data$PIERWSZE3.3.,
+                    data$PIERWSZE4.4.,
+                    data$PIERWSZE5.5.,
+                    data$PIERWSZE6.6.,
+                    data$PIERWSZE7.7.,
+                    data$PIERWSZE8.8.,
+                    data$PIERWSZE9.9.,
+                    data$PIERWSZE10.10.,
+                    data$PIERWSZE11.11.,
+                    data$PIERWSZE12.12.), na.rm = TRUE)
+
+data$URWANIE_RYNNY <- NA
+data[which(data$LOSUJ <13),]$URWANIE_RYNNY <- n1[which(data$LOSUJ <13)]
+
+# KODOWANIE KOPNIECIA PIŁKI
+
+n2 <- rowSums(cbind(data$PIERWSZE13.13.,
+                    data$PIERWSZE14.14.,
+                    data$PIERWSZE15.15.,
+                    data$PIERWSZE16.16.,
+                    data$PIERWSZE17.17.,
+                    data$PIERWSZE18.18.,
+                    data$PIERWSZE19.19.,
+                    data$PIERWSZE20.20.,
+                    data$PIERWSZE21.21.,
+                    data$PIERWSZE22.22.,
+                    data$PIERWSZE23.23.,
+                    data$PIERWSZE24.24.), na.rm = TRUE)
+
+data$KOPNIECIE_PILKI <- NA
+data[which(!data$LOSUJ<13),]$KOPNIECIE_PILKI <- n2[which(!data$LOSUJ<13)]
+
+# KODOWANIE KONEWKI
+
+n3 <- rowSums(cbind(data$DRUGIE1.1,
+                    data$DRUGIE2.2,
+                    data$DRUGIE3.3.,
+                    data$DRUGIE13.13.,
+                    data$DRUGIE14.14.,
+                    data$DRUGIE15.15.), na.rm = TRUE)
+
+data$SPADNIECIE_KONEWKI <- NA
+data[which(data$LOSUJ %in% c(1,2,3,13,14,15)),]$SPADNIECIE_KONEWKI <- n3[which(data$LOSUJ %in% c(1,2,3,13,14,15))]
+
+
+# KODOWANIE TRAWY I WIATRU
+
+n4 <- rowSums(cbind(data$DRUGIE4.4,
+                    data$DRUGIE5.5,
+                    data$DRUGIE6.6.,
+                    data$DRUGIE16.16.,
+                    data$DRUGIE17.17.,
+                    data$DRUGIE18.18.), na.rm = TRUE)
+
+data$BRAK_TRAWY_LUB_WIATRU <- NA
+data[which(data$LOSUJ %in% c(4,5,6,16,17,18)),]$BRAK_TRAWY_LUB_WIATRU <- n4[which(data$LOSUJ %in% c(4,5,6,16,17,18))]
+
+# KODOWANIE MALINOWSKIEJ
+
+n5 <- rowSums(cbind(data$DRUGIE7.7,
+                    data$DRUGIE8.8,
+                    data$DRUGIE9.9.,
+                    data$DRUGIE19.19.,
+                    data$DRUGIE20.20.,
+                    data$DRUGIE21.21.), na.rm = TRUE)
+
+data$ZLORZECZENIE_MALINOWSKIEJ <- NA
+data[which(data$LOSUJ %in% c(7,8,9,19,20,21)),]$ZLORZECZENIE_MALINOWSKIEJ <- n5[which(data$LOSUJ %in% c(7,8,9,19,20,21))]
+
+# KODOWANIE ROBOTNIKÓW I RUSZTOWANIA
+
+n6 <- rowSums(cbind(data$DRUGIE10.10,
+                    data$DRUGIE11.11,
+                    data$DRUGIE12.12.), na.rm = TRUE)
+
+data$ROBOTNICY_BRAK_RUSZTOWANIA <- NA
+data[which(data$LOSUJ %in% c(10,11,12)),]$ROBOTNICY_BRAK_RUSZTOWANIA <- n6[which(data$LOSUJ %in% c(10,11,12))]
+
+
+# KODOWANIE MIESZKAŃCÓW I TRAWY
+
+n7 <- rowSums(cbind(data$DRUGIE22.22,
+                    data$DRUGIE23.23,
+                    data$DRUGIE24.24.), na.rm = TRUE)
+
+data$MIESZKANCY_BRAK_TRAWY <- NA
+data[which(data$LOSUJ %in% c(22,23,24)),]$MIESZKANCY_BRAK_TRAWY <- n7[which(data$LOSUJ %in% c(22,23,24))]
+
+
+# KODOWANIE ODPOWIEDZIALNOSCI DOZORCY
+
+dozorcaa <- cbind(as.character(data$CZWARTE2),
+                  as.character(data$CZWARTE3),
+                  as.character(data$CZWARTE5),
+                  as.character(data$CZWARTE6),
+                  as.character(data$CZWARTE8),
+                  as.character(data$CZWARTE9),
+                  as.character(data$CZWARTE11),
+                  as.character(data$CZWARTE12),
+                  as.character(data$CZWARTE14),
+                  as.character(data$CZWARTE15),
+                  as.character(data$CZWARTE17),
+                  as.character(data$CZWARTE18),
+                  as.character(data$CZWARTE20),
+                  as.character(data$CZWARTE21),
+                  as.character(data$CZWARTE23),
+                  as.character(data$CZWARTE24)
+)
+dozorcab <- character(nrow(data))
+
+for(n in 1:nrow(data)) {
+  for(x in 1:16)
+    if(dozorcaa[n,x] != "") {
+      dozorcab[n] <- dozorcaa[n,x]
+    } 
+}
+
+data$ODPOWIEDZIALNOSC_DOZORCY <- as.factor(dozorcab)
+
+# KODOWANIE ODPOWIEDZIALNOSCI MALINOWSKIEJ
+
+malinowskaa <- cbind(as.character(data$TRZECIE8),
+                     as.character(data$TRZECIE9),
+                     as.character(data$PIATE20),
+                     as.character(data$PIATE21))
+
+malinowskab <- character(nrow(data))
+
+for(n in 1:nrow(data)) {
+  for(x in 1:4)
+    if(malinowskaa[n,x] != "") {
+      malinowskab[n] <- malinowskaa[n,x]
+    } 
+}
+
+data$ODPOWIEDZIALNOSC_MALINOWSKIEJ <- as.factor(malinowskab)
+
+# KODOWANIE ODPOWIEDZIALNOSCI ROBOTNIKÓW
+
+robotnicya <- cbind(as.character(data$TRZECIE11),
+                    as.character(data$TRZECIE12))
+
+robotnicyb <- character(nrow(data))
+
+for(n in 1:nrow(data)) {
+  for(x in 1:2)
+    if(robotnicya[n,x] != "") {
+      robotnicyb[n] <- robotnicya[n,x]
+    } 
+}
+
+data$ODPOWIEDZIALNOSC_ROBOTNIKÓW <- as.factor(robotnicyb)
+
+# KODOWANIE ODPOWIEDZIALNOSCI CHŁOPCA
+
+chlopieca <- cbind(as.character(data$TRZECIE14),
+                   as.character(data$TRZECIE15),
+                   as.character(data$TRZECIE17),
+                   as.character(data$TRZECIE18),
+                   as.character(data$TRZECIE20),
+                   as.character(data$TRZECIE21),
+                   as.character(data$TRZECIE23),
+                   as.character(data$TRZECIE24))
+
+
+chlopiecb <- character(nrow(data))
+
+for(n in 1:nrow(data)) {
+  for(x in 1:8)
+    if(chlopieca[n,x] != "") {
+      chlopiecb[n] <- chlopieca[n,x]
+    } 
+}
+
+data$ODPOWIEDZIALNOSC_CHLOPCA <- as.factor(chlopiecb)
+
+
+# KODOWANIE ODPOWIEDZIALNOSCI MIESZKAŃCÓW
+
+mieszkancya <- cbind(as.character(data$PIATE23),
+                     as.character(data$PIATE24))
+
+mieszkancyb <- character(nrow(data))
+
+for(n in 1:nrow(data)) {
+  for(x in 1:2)
+    if(mieszkancya[n,x] != "") {
+      mieszkancyb[n] <- mieszkancya[n,x]
+    } 
+}
+
+data$ODPOWIEDZIALNOSC_MIESZKANCOW <- as.factor(mieszkancyb)
+
+
+#KODOWANIE PIERWSZOSCI I DRUGOŚCI PYTAŃ
+
+data$PYTANIE_PIERWSZE <- rowSums(cbind(data$URWANIE_RYNNY, data$KOPNIECIE_PILKI), na.rm = TRUE)
+data$PYTANIE_DRUGIE <- rowSums(cbind(data$SPADNIECIE_KONEWKI, data$ZLORZECZENIE_MALINOWSKIEJ, data$ROBOTNICY_BRAK_RUSZTOWANIA,
+                                     data$MIESZKANCY_BRAK_TRAWY, data$BRAK_TRAWY_LUB_WIATRU), na.rm = TRUE)
+
+# KOSMETYKA
+data$SKUTEK <-character(nrow(data))
+data[which(data$LOSUJ %in% c(1,4,7,10,13,16,19,22)),]$SKUTEK <- "Neutralny"
+data[which(data$LOSUJ %in% c(2,5,8,11,14,17,20,23)),]$SKUTEK <- "Pozytywny"
+data[which(data$LOSUJ %in% c(3,6,9,12,15,18,21,24)),]$SKUTEK <- "Negatywny"
+
+data$PIERWSZE_OGNIWO <-character(nrow(data))
+data[which(data$LOSUJ < 13),]$PIERWSZE_OGNIWO <- "Dzianie się"
+data[which(data$LOSUJ > 12),]$PIERWSZE_OGNIWO <- "Działanie"
+
+data$DRUGIE_OGNIWO <-character(nrow(data))
+data[which(data$LOSUJ %in% c(1:6, 13:18)),]$DRUGIE_OGNIWO <- "Dzianie się"
+data[which(!data$LOSUJ %in% c(1:6, 13:18)),]$DRUGIE_OGNIWO <- "Działanie"
+
+data$ZMIANA_CZY_BRAK <-character(nrow(data))
+data[which(data$LOSUJ %in% c(1:3, 7:9, 13:15, 19:21)),]$ZMIANA_CZY_BRAK <- "Zmiana"
+data[which(!data$LOSUJ %in% c(1:3, 7:9, 13:15, 19:21)),]$ZMIANA_CZY_BRAK <- "Brak zmiany"
+
+## KODY KRÓTKIE
+data$P_P <- data$PYTANIE_PIERWSZE
+data$P_D <- data$PYTANIE_DRUGIE
+data$O_P <- data$PIERWSZE_OGNIWO
+data$O_D <- data$DRUGIE_OGNIWO
+data$S_M <- data$SKUTEK
+data$Z <- data$ZMIANA_CZY_BRAK
+
+
+
+data_z <- data[which(data$ZMIANA_CZY_BRAK == "Zmiana"),]
+data_bz <- data[which(data$ZMIANA_CZY_BRAK != "Zmiana"),]
+
+## ANOVA
+
+z_model_p1 <- glm(P_P ~ (O_P*O_D*S_M), data=data_z, contrasts = c("contr.sum"))
+z_model_p2 <- glm(P_D ~ (O_P*O_D*S_M), data=data_z, contrasts = c("contr.sum"))
+
+bz_model_p1 <- glm(P_P ~ (O_P*O_D*S_M), data=data_bz, contrasts = c("contr.sum"))
+bz_model_p2 <- glm(P_D ~ (O_P*O_D*S_M), data=data_bz, contrasts = c("contr.sum"))
+
+
+z_a_model_p1 <- aov(z_model_p1)
+z_a_model_p2 <- aov(z_model_p2)
+
+bz_a_model_p1 <- aov(bz_model_p1)
+bz_a_model_p2 <- aov(bz_model_p2)
+```
+
+## Zmiana - pytanie 1
+
+```{r, echo=FALSE}
+Anova(z_a_model_p1, type = 2)
+```
+
+### Pytanie I 
+
+#### Ogniwo pierwsze + ogniwo drugie + skutek moralny
+
+```{r, echo=FALSE}
+par(cex = 0.7)
+par(mar=c(5,15,1,1))
+par(bg = "#fdf6e3")
+TEST_Z1 <- HSD.test(z_model_p1, c("O_P", "O_D", "S_M"))
+bar.group(TEST_Z1$groups, horiz = TRUE,   las = 1, xlim = c(0,4))
+dev.copy(svg,'omni_plot1.svg')
+dev.off()
+```
+
+#### Ogniwo pierwsze
+
+```{r, echo=FALSE}
+par(cex = 0.7)
+par(mar=c(5,15,1,1))
+par(bg = "#fdf6e3")
+
+OPTEST_Z1 <- HSD.test(z_model_p1, c("O_P"))
+bar.group(OPTEST_Z1$groups, horiz = TRUE,   las = 1, xlim = c(0,4))
+dev.copy(svg,'omni_plot2.svg')
+dev.off()
+```
+
+#### Ogniwo drugie
+
+```{r, echo=FALSE}
+par(cex = 0.7)
+par(mar=c(5,15,1,1))
+par(bg = "#fdf6e3")
+
+ODTEST_Z1 <- HSD.test(z_model_p1, c("O_D"))
+bar.group(ODTEST_Z1$groups, horiz = TRUE,   las = 1, xlim = c(0,4))
+dev.copy(svg,'omni_plot3.svg')
+dev.off()
+```
+
+## Zmiana - pytanie 2
+
+```{r, echo=FALSE}
+Anova(z_a_model_p2, type = 2)
+```
+
+### Pytanie II 
+
+```{r, echo=FALSE}
+par(cex = 0.7)
+par(mar=c(5,15,1,1))
+par(bg = "#fdf6e3")
+
+TEST_Z2 <- HSD.test(z_model_p2, c("O_P", "O_D", "S_M"))
+bar.group(TEST_Z2$groups, horiz = TRUE,   las = 1, xlim = c(0,4))
+dev.copy(svg,'omni_plot4.svg')
+dev.off()
+```
+
+## Brak zmiany
+### Pytanie 1
+
+```{r, echo=FALSE}
+Anova(bz_a_model_p1, type = 2)
+```
+
+
+#### Ogniwo pierwsze + ogniwo drugie + skutek moralny
+
+```{r, echo=FALSE}
+par(cex = 0.7)
+par(mar=c(5,15,1,1))
+par(bg = "#fdf6e3")
+
+TEST_BZ1 <- HSD.test(bz_model_p1, c("O_P", "O_D", "S_M"))
+bar.group(TEST_BZ1$groups, horiz = TRUE,   las = 1, xlim = c(0,4))
+dev.copy(svg,'omni_plot5.svg')
+dev.off()
+```
+
+#### Ogniwo pierwsze
+
+```{r, echo=FALSE}
+par(cex = 0.7)
+par(mar=c(5,15,1,1))
+OPTEST_BZ1 <- HSD.test(bz_model_p1, c("O_P"))
+par(bg = "#fdf6e3")
+
+bar.group(OPTEST_BZ1$groups, horiz = TRUE,   las = 1, xlim = c(0,4))
+dev.copy(svg,'omni_plot6.svg')
+dev.off()
+```
+
+
+### Ogniwo pierwsze + skutek moralny
+
+```{r, echo=FALSE}
+par(cex = 0.7)
+par(mar=c(5,15,1,1))
+par(bg = "#fdf6e3")
+
+OPSMTEST_BZ1 <- HSD.test(bz_model_p1, c("O_P","S_M"))
+bar.group(OPSMTEST_BZ1$groups, horiz = TRUE,   las = 1, xlim = c(0,4))
+dev.copy(svg,'omni_plot7.svg')
+dev.off()
+```
+
+## Brak zmiany
+
+### Pytanie II 
+
+
+```{r, echo=FALSE}
+Anova(bz_a_model_p2, type = 2)
+```
+
+#### Ogniwo pierwsze + ogniwo drugie + skutek moralny
+
+```{r, echo=FALSE}
+par(cex = 0.65)
+par(mar=c(5,15,1,1))
+par(bg = "#fdf6e3")
+
+TEST_BZ2 <- HSD.test(bz_model_p2, c("O_P", "O_D", "S_M"), alpha = 0.05)
+bar.group(TEST_BZ2$groups, horiz = TRUE,   las = 1, xlim = c(0,4))
+dev.copy(svg,'omni_plot8.svg')
+dev.off()
+```
+
+#### Ogniwo pierwsze
+
+```{r, echo=FALSE}
+par(cex = 0.7)
+par(mar=c(5,15,1,1))
+par(bg = "#fdf6e3")
+
+OPTEST_BZ2 <- HSD.test(bz_model_p2, c("O_P"))
+bar.group(OPTEST_BZ2$groups, horiz = TRUE,   las = 1, xlim = c(0,4))
+dev.copy(svg,'omni_plot9.svg')
+dev.off()
+```
+
+#### Ogniwo drugie
+
+```{r, echo=FALSE}
+par(cex = 0.7)
+par(mar=c(5,15,1,1))
+par(bg = "#fdf6e3")
+
+ODTEST_BZ2 <- HSD.test(bz_model_p2, c("O_D"))
+bar.group(ODTEST_BZ2$groups, horiz = TRUE,   las = 1, xlim = c(0,4))
+dev.copy(svg,'omni_plot10.svg')
+dev.off()
+```
+
+
+#### Ogniwo pierwsze + ogniwo drugie
+
+```{r, echo=FALSE}
+par(cex = 0.7)
+par(mar=c(5,15,1,1))
+par(bg = "#fdf6e3")
+
+OPODTEST_BZ2 <- HSD.test(bz_model_p2, c("O_P", "O_D"))
+bar.group(OPODTEST_BZ2$groups, horiz = TRUE,   las = 1, xlim = c(0,4))
+dev.copy(svg,'omni_plot11.svg')
+dev.off()
+```
+
+#### Skutek moralny
+
+```{r, echo=FALSE}
+par(cex = 0.7)
+par(mar=c(5,15,1,1))
+par(bg = "#fdf6e3")
+
+SMTEST_BZ2 <- HSD.test(bz_model_p2, c("S_M"))
+bar.group(SMTEST_BZ2$groups, horiz = TRUE,   las = 1, xlim = c(0,4))
+dev.copy(svg,'omni_plot12.svg')
+dev.off()
+```
+
+#### Ogniwo pierwsze + skutek moralny
+
+```{r, echo=FALSE}
+par(cex = 0.7)
+par(mar=c(5,15,1,1))
+par(bg = "#fdf6e3")
+
+OPSMTEST_BZ2 <- HSD.test(bz_model_p2, c("O_P", "S_M"))
+bar.group(OPSMTEST_BZ2$groups, horiz = TRUE,   las = 1, xlim = c(0,4))
+dev.copy(svg,'omni_plot13.svg')
+dev.off()
+```
+
+```{r, echo=FALSE} 
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE, fig.width=10)
+par(bg = "#fdf6e3")
+par(cex = 1)
+T_1 <- HSD.test(z_a_model_p1, c("O_P","O_D","S_M"))
+T_2 <- HSD.test(z_a_model_p2, c("O_P","O_D","S_M"))
+T_3 <- HSD.test(bz_a_model_p1, c("O_P","O_D","S_M"))
+T_4 <- HSD.test(bz_a_model_p2, c("O_P","O_D","S_M"))
+labels <- c(paste("Zmiana:", as.character(T_1$groups$trt), sep =""), paste("BrakZmiany:", as.character(T_1$groups$trt), sep =""))
+
+m <- as.matrix(cbind(c(T_1$means[[1]], T_3$means[[1]]), c(T_2$means[[1]], T_4$means[[1]])))
+rownames(m)<-labels
+d <- dist(m)
+
+plot(hclust(d), labels = labels)
+dev.copy(svg,'omni_clust.svg')
+dev.off()
+library(ape)
+plot(as.phylo(hclust(d)))
+dev.copy(svg,'omni_clust2.svg')
+dev.off()
+
+```
+
+```{r}
+resp_dozorca <- data[which(data$ODPOWIEDZIALNOSC_DOZORCY %in% levels(data$ODPOWIEDZIALNOSC_DOZORCY)[c(2,3,5,7,10)]),]
+resp_dozorca <- data[which(data$ODPOWIEDZIALNOSC_DOZORCY %in% levels(data$ODPOWIEDZIALNOSC_DOZORCY)[c(2,3,5,7,10)] & data$ZMIANA_CZY_BRAK == "Brak zmiany"),]
+
+
+resp_dozorca$ODPOWIEDZIALNOSC_DOZORCY <- factor(as.character(resp_dozorca$ODPOWIEDZIALNOSC_DOZORCY), levels = c("nie jest winą dozorcy.",
+                                                                         "jest w stopniu znikomym winą dozorcy.",
+                                                                         "jest tylko w pewnym stopniu winą dozorcy.",
+                                                                         "jest  w znacznym stopniu winą dozorcy.",
+                                                                         "jest całkowicie winą dozorcy."
+                                                                         ))
+
+
+
+resp_dozorca$ODPOWIEDZIALNOSC_DOZORCY_N <- as.numeric(resp_dozorca$ODPOWIEDZIALNOSC_DOZORCY)
+
+Anova(lm(ODPOWIEDZIALNOSC_DOZORCY_N~O_D*O_P*ZMIANA_CZY_BRAK, data=resp_dozorca), type =2)
+
+
+
+
+
+
+
+
+
+
+resp_dozorca2 <- data[which(data$ODPOWIEDZIALNOSC_DOZORCY %in% levels(data$ODPOWIEDZIALNOSC_DOZORCY)[c(4,6,8,9,11)] & data$ZMIANA_CZY_BRAK =="Zmiana"),]
+
+resp_dozorca2 <- data[which(data$ODPOWIEDZIALNOSC_DOZORCY %in% levels(data$ODPOWIEDZIALNOSC_DOZORCY)[c(4,6,8,9,11)]),]
+
+resp_dozorca2$ODPOWIEDZIALNOSC_DOZORCY <- factor(as.character(resp_dozorca2$ODPOWIEDZIALNOSC_DOZORCY), levels = c("nie jest zasługą dozorcy.",
+                                                                         "jest w stopniu znikomym zasługą dozorcy.",
+                                                                         "jest tylko w pewnym stopniu zasługą dozorcy.",
+                                                                         "jest w znacznym stopniu zasługą dozorcy.",
+                                                                         "jest całkowicie zasługą dozorcy."
+                                                                         ))
+
+
+
+resp_dozorca2$ODPOWIEDZIALNOSC_DOZORCY_N <- as.numeric(resp_dozorca2$ODPOWIEDZIALNOSC_DOZORCY)
+
+Anova(lm(ODPOWIEDZIALNOSC_DOZORCY_N~O_D*O_P, data=resp_dozorca2), type =2)
+
+
+```
+
+
+
