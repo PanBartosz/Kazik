@@ -189,7 +189,6 @@ data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced"),]$PRZYCZYNA_Z 
 
 
 
-
 ## Skutek Zmiana?
 data_s$SKUTEK_Z <- character(nrow(data_s))
 
@@ -203,6 +202,87 @@ data_s[which(data_s$V1 == "Help" & data_s$V2 == "Introduced"),]$SKUTEK_Z <- ifel
 
 
 data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced"),]$SKUTEK_Z <- ifelse((data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced"),]$PYTANIE %in% c(2,3)), "Tak", "Nie")
+
+
+
+# HARM PRIM
+
+## Przyczyna moralna?
+data_s$PRZYCZYNA_M <- numeric(nrow(data_s))
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Introduced" & data_s$PYTANIE == 1),]$PRZYCZYNA_M <-  0
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Introduced" & data_s$PYTANIE == 2),]$PRZYCZYNA_M <-  0
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Introduced" & data_s$PYTANIE == 3),]$PRZYCZYNA_M <-  -2
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Introduced" & data_s$PYTANIE == 4),]$PRZYCZYNA_M <-   1
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Introduced" & data_s$PYTANIE == 5),]$PRZYCZYNA_M <-  -1
+
+## Skutek moralny?
+
+data_s$SKUTEK_M <- numeric(nrow(data_s))
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Introduced" & data_s$PYTANIE == 1),]$SKUTEK_M <-  -2
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Introduced" & data_s$PYTANIE == 2),]$SKUTEK_M <-  -1
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Introduced" & data_s$PYTANIE == 3),]$SKUTEK_M <-  1
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Introduced" & data_s$PYTANIE == 4),]$SKUTEK_M <-   -2
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Introduced" & data_s$PYTANIE == 5),]$SKUTEK_M <-  3
+
+
+# HARM BIS
+
+## Przyczyna moralna?
+data_s$PRZYCZYNA_M <- numeric(nrow(data_s))
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 1),]$PRZYCZYNA_M <-  0
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 2),]$PRZYCZYNA_M <-  0
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 3),]$PRZYCZYNA_M <-  2
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 4),]$PRZYCZYNA_M <-  -1
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 5),]$PRZYCZYNA_M <-  1
+
+## Skutek moralny?
+
+data_s$SKUTEK_M <- numeric(nrow(data_s))
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 1),]$SKUTEK_M <-  2
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 2),]$SKUTEK_M <-  1
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 3),]$SKUTEK_M <-  -1
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 4),]$SKUTEK_M <-   2
+data_s[which(data_s$V1 == "Harm" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 5),]$SKUTEK_M <-  -3
+
+# HELP PRIM
+
+## Przyczyna moralna?
+data_s$PRZYCZYNA_M <- numeric(nrow(data_s))
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Introduced" & data_s$PYTANIE == 1),]$PRZYCZYNA_M <-  0
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Introduced" & data_s$PYTANIE == 2),]$PRZYCZYNA_M <-  0
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Introduced" & data_s$PYTANIE == 3),]$PRZYCZYNA_M <-  2
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Introduced" & data_s$PYTANIE == 4),]$PRZYCZYNA_M <-   1
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Introduced" & data_s$PYTANIE == 5),]$PRZYCZYNA_M <-  0
+
+## Skutek moralny?
+
+data_s$SKUTEK_M <- numeric(nrow(data_s))
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Introduced" & data_s$PYTANIE == 1),]$SKUTEK_M <-  2
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Introduced" & data_s$PYTANIE == 2),]$SKUTEK_M <-  0
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Introduced" & data_s$PYTANIE == 3),]$SKUTEK_M <-  -1
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Introduced" & data_s$PYTANIE == 4),]$SKUTEK_M <-   2
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Introduced" & data_s$PYTANIE == 5),]$SKUTEK_M <- -3
+
+
+# HELP BIS
+
+## Przyczyna moralna?
+data_s$PRZYCZYNA_M <- numeric(nrow(data_s))
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 1),]$PRZYCZYNA_M <-  0
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 2),]$PRZYCZYNA_M <-  0
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 3),]$PRZYCZYNA_M <-  -2
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 4),]$PRZYCZYNA_M <-  -1
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 5),]$PRZYCZYNA_M <-  0
+
+## Skutek moralny?
+
+data_s$SKUTEK_M <- numeric(nrow(data_s))
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 1),]$SKUTEK_M <-  2
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 2),]$SKUTEK_M <-  0
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 3),]$SKUTEK_M <-  1
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 4),]$SKUTEK_M <- -2
+data_s[which(data_s$V1 == "Help" & data_s$V2 == "Not introduced" & data_s$PYTANIE == 5),]$SKUTEK_M <-  3
+
 
 ## 
 

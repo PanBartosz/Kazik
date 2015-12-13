@@ -532,6 +532,91 @@ resp_dozorca2$ODPOWIEDZIALNOSC_DOZORCY_N <- as.numeric(resp_dozorca2$ODPOWIEDZIA
 Anova(lm(ODPOWIEDZIALNOSC_DOZORCY_N~O_D*O_P, data=resp_dozorca2), type =2)
 
 
+
+resp_chlopiec <- data[which(data$ODPOWIEDZIALNOSC_CHLOPCA %in% levels(data$ODPOWIEDZIALNOSC_CHLOPCA)[c(2,4,6,9)]),] 
+resp_chlopiec$ODPOWIEDZIALNOSC_CHLOPCA <- factor(as.character(resp_chlopiec$ODPOWIEDZIALNOSC_CHLOPCA), levels = c("nie jest winą chłopca.",
+                                                                         "jest w stopniu znikomym winą chłopca.",
+                                                                         "jest tylko w pewnym stopniu winą chłopca.",
+                                                                         "jest  w znacznym stopniu winą chłopca."
+                                                                         ))
+resp_chlopiec$ODPOWIEDZIALNOSC_CHLOPCA_N <- as.numeric(resp_chlopiec$ODPOWIEDZIALNOSC_CHLOPCA)
+
+resp_chlopiec$ODPOWIEDZIALNOSC_DOZORCY <- factor(as.character(resp_chlopiec$ODPOWIEDZIALNOSC_DOZORCY), levels = c("nie jest winą dozorcy.",
+                                                                         "jest w stopniu znikomym winą dozorcy.",
+                                                                         "jest tylko w pewnym stopniu winą dozorcy.",
+                                                                         "jest  w znacznym stopniu winą dozorcy.",
+                                                                         "jest całkowicie winą dozorcy."
+                                                                         ))
+
+
+
+resp_chlopiec$ODPOWIEDZIALNOSC_DOZORCY_N <- as.numeric(resp_chlopiec$ODPOWIEDZIALNOSC_DOZORCY)
+
+
+Anova(lm(ODPOWIEDZIALNOSC_CHLOPCA_N~O_D*ZMIANA_CZY_BRAK, data=resp_chlopiec), type =2)
+
+
+duncan.test(lm(ODPOWIEDZIALNOSC_DOZORCY_N~ODPOWIEDZIALNOSC_CHLOPCA_N , data=resp_chlopiec), "ODPOWIEDZIALNOSC_CHLOPCA_N", console=TRUE)
+
+
+
+
+
+
+
+
+
+
+
+
+resp_chlopiec2 <- data[which(data$ODPOWIEDZIALNOSC_CHLOPCA %in% levels(data$ODPOWIEDZIALNOSC_CHLOPCA)[c(3,5,7,8,10)]),] 
+resp_chlopiec2$ODPOWIEDZIALNOSC_CHLOPCA <- factor(as.character(resp_chlopiec2$ODPOWIEDZIALNOSC_CHLOPCA), levels = c("nie jest zasługą chłopca.",
+                                                                         "jest w stopniu znikomym zasługą chłopca.",
+                                                                         "jest tylko w pewnym stopniu zasługą chłopca.",
+                                                                         "jest w znacznym stopniu zasługą chłopca.",
+                                                                         "jest całkowicie zasługą chłopca."
+                                                                         ))
+resp_chlopiec2$ODPOWIEDZIALNOSC_CHLOPCA_N <- as.numeric(resp_chlopiec2$ODPOWIEDZIALNOSC_CHLOPCA)
+
+resp_chlopiec2$ODPOWIEDZIALNOSC_DOZORCY <- factor(as.character(resp_chlopiec2$ODPOWIEDZIALNOSC_DOZORCY), levels = c("nie jest zasługą dozorcy.",
+                                                                         "jest w stopniu znikomym zasługą dozorcy.",
+                                                                         "jest tylko w pewnym stopniu zasługą dozorcy.",
+                                                                         "jest w znacznym stopniu zasługą dozorcy.",
+                                                                         "jest całkowicie zasługą dozorcy."
+                                                                         ))
+
+
+
+resp_chlopiec2$ODPOWIEDZIALNOSC_DOZORCY_N <- as.numeric(resp_chlopiec2$ODPOWIEDZIALNOSC_DOZORCY)
+
+
+resp_malinowska <- resp_chlopiec[which(resp_chlopiec$ODPOWIEDZIALNOSC_MALINOWSKIEJ %in% levels(resp_chlopiec$ODPOWIEDZIALNOSC_MALINOWSKIEJ)[c(2,3,4,6,9)]),]
+resp_chlopiec$ODPOWIEDZIALNOSC_MALINOWSKIEJ[which(resp_chlopiec$ODPOWIEDZIALNOSC_MALINOWSKIEJ=="jest tylko w pewnym stopniu winą pani Malinowskiej .")]
+
+
+resp_malinowska$ODPOWIEDZIALNOSC_MALINOWSKIEJ <- factor(as.character(resp_malinowska$ODPOWIEDZIALNOSC_MALINOWSKIEJ), 
+                                                        levels = c("nie jest winą pani Malinowskiej.",
+                                                                         "jest w stopniu znikomym winą pani Malinowskiej.",
+                                                                         "jest tylko w pewnym stopniu winą pani Malinowskiej.",
+                                                                         "jest  w znacznym stopniu winą pani Malinowskiej."
+                                                                         ))
+
+resp_malinowska$ODPOWIEDZIALNOSC_MALINOWSKIEJ_N <- as.numeric(resp_malinowska$ODPOWIEDZIALNOSC_MALINOWSKIEJ)
+
+
+
+resp_malinowska2 <- resp_chlopiec2[which(resp_chlopiec2$ODPOWIEDZIALNOSC_MALINOWSKIEJ %in% levels(resp_chlopiec2$ODPOWIEDZIALNOSC_MALINOWSKIEJ)[c(5,7,8,10)]),]
+
+resp_malinowska2$ODPOWIEDZIALNOSC_MALINOWSKIEJ <- factor(as.character(resp_malinowska2$ODPOWIEDZIALNOSC_MALINOWSKIEJ), 
+                                                        levels = c("nie jest zasługą pani Malinowskiej.",
+                                                                         "jest w stopniu znikomym zasługą pani Malinowskiej.",
+                                                                         "jest tylko w pewnym stopniu zasługą pani Malinowskiej.",
+                                                                         "jest w znacznym stopniu zasługą pani Malinowskiej."
+                                                                         ))
+
+resp_malinowska2$ODPOWIEDZIALNOSC_MALINOWSKIEJ_N <- as.numeric(resp_malinowska2$ODPOWIEDZIALNOSC_MALINOWSKIEJ)
+
+
 ```
 
 
